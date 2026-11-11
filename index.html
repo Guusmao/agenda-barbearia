@@ -212,7 +212,7 @@
             </div>
             <div class="form-group" style="text-align: left;">
               <label for="adminPass">Senha</label>
-              <input type="password" id="adminPass" class="form-input" autocomplete="current-password" required>
+              <div class="campo-senha"><input type="password" id="adminPass" class="form-input" autocomplete="current-password" required><button type="button" class="btn-olho" data-alvo="adminPass" aria-label="Mostrar senha"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
             </div>
             <button type="submit" class="btn btn-primary" style="width: 100%;">Acessar Painel</button>
             <button type="button" class="link-senha" id="btnCriarSenha">Primeiro acesso? Criar conta</button>
@@ -231,7 +231,7 @@
             </div>
             <div class="form-group" style="text-align: left;">
               <label for="senhaNova">Senha (mínimo 8 caracteres)</label>
-              <input type="password" id="senhaNova" class="form-input" autocomplete="new-password" minlength="8" required>
+              <div class="campo-senha"><input type="password" id="senhaNova" class="form-input" autocomplete="new-password" minlength="8" required><button type="button" class="btn-olho" data-alvo="senhaNova" aria-label="Mostrar senha"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
             </div>
             <button type="submit" class="btn btn-primary" id="btnSenhaEnviar" style="width: 100%;">Criar conta</button>
             <button type="button" class="link-senha" id="btnVoltarLogin">Voltar para o login</button>
@@ -520,16 +520,16 @@
   <!-- Cliente do banco (Neon), gerado com: npx esbuild (ver README) -->
   <script src="js/vendor/neon-js-0.10.2.min.js"></script>
   <!-- App Scripts -->
-  <script src="js/config.js?v=19"></script>
-  <script src="js/config-render.js?v=19"></script>
-  <script src="js/ui-components.js?v=19"></script>
-  <script src="js/db.js?v=19"></script>
-  <script src="js/auth.js?v=19"></script>
-  <script src="js/auth-ui.js?v=19"></script>
-  <script src="js/agendamento.js?v=19"></script>
-  <script src="js/meus_agendamentos.js?v=19"></script>
-  <script src="js/admin.js?v=19"></script>
-  <script src="js/router.js?v=19"></script>
+  <script src="js/config.js?v=20"></script>
+  <script src="js/config-render.js?v=20"></script>
+  <script src="js/ui-components.js?v=20"></script>
+  <script src="js/db.js?v=20"></script>
+  <script src="js/auth.js?v=20"></script>
+  <script src="js/auth-ui.js?v=20"></script>
+  <script src="js/agendamento.js?v=20"></script>
+  <script src="js/meus_agendamentos.js?v=20"></script>
+  <script src="js/admin.js?v=20"></script>
+  <script src="js/router.js?v=20"></script>
 
   <!-- Navbar scroll + mobile menu -->
   <script>

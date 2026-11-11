@@ -2752,3 +2752,13 @@ tr.row-vencido {
   font-size: 0.9rem;
   margin-bottom: 18px;
 }
+
+/* Mostrar/ocultar senha */
+.campo-senha { position: relative; }
+.campo-senha .form-input { padding-right: 48px; }
+.btn-olho {
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  background: none; border: 0; padding: 8px; cursor: pointer;
+  color: var(--text-secondary); display: flex;
+}
+.btn-olho:hover, .btn-olho.ativo { color: var(--accent); }

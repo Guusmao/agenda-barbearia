@@ -115,6 +115,17 @@
     initCriarSenha(adminLoginForm, entrarSeForAdmin);
   }
 
+  // --- Olhinho para mostrar/ocultar senha ---
+  document.querySelectorAll('.btn-olho').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const input = document.getElementById(btn.dataset.alvo);
+      const mostrar = input.type === 'password';
+      input.type = mostrar ? 'text' : 'password';
+      btn.classList.toggle('ativo', mostrar);
+      btn.setAttribute('aria-label', mostrar ? 'Ocultar senha' : 'Mostrar senha');
+    });
+  });
+
   // --- Primeiro acesso: cria a conta na tela (sem depender de e-mail) ---
   function initCriarSenha(loginForm, entrarSeForAdmin) {
     const senhaForm = document.getElementById('adminSenhaForm');
