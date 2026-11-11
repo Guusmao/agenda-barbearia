@@ -315,7 +315,7 @@
 
       // Success
       const gCalUrl = generateGoogleCalendarUrl({ servico, nome, telefone, data, horario });
-      showToast(`✅ Agendamento confirmado! <a href="${gCalUrl}" target="_blank" style="color: #d4af37; font-weight: bold; text-decoration: underline; margin-left: 5px;">Adicionar ao Google Agenda</a>`, 'success', 8000);
+      showToast(`✅ Agendamento confirmado! <a href="${gCalUrl}" target="_blank" style="color: var(--accent-light); font-weight: bold; text-decoration: underline; margin-left: 5px;">Adicionar ao Google Agenda</a>`, 'success', 8000);
 
       // Reset form
       form.reset();

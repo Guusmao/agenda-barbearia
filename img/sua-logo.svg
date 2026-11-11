@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Sua logo aqui">
+  <rect x="12" y="12" width="376" height="376" rx="36" fill="none" stroke="#8b96a8" stroke-width="4" stroke-dasharray="14 12"/>
+  <g fill="none" stroke="#8b96a8" stroke-width="10" stroke-linecap="round" transform="translate(200 150)">
+    <circle cx="-34" cy="30" r="18"/>
+    <circle cx="34" cy="30" r="18"/>
+    <path d="M-22 16 L30 -46 M22 16 L-30 -46"/>
+  </g>
+  <text x="200" y="268" text-anchor="middle" font-family="Outfit, Inter, Arial, sans-serif" font-size="38" font-weight="700" fill="#c9d1dc">Sua logo aqui</text>
+  <text x="200" y="306" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" fill="#8b96a8">Troque em js/config.js</text>
+</svg>
