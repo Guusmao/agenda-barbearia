@@ -5,6 +5,5 @@
     <circle cx="34" cy="30" r="18"/>
     <path d="M-22 16 L30 -46 M22 16 L-30 -46"/>
   </g>
-  <text x="200" y="268" text-anchor="middle" font-family="Outfit, Inter, Arial, sans-serif" font-size="38" font-weight="700" fill="#c9d1dc">Sua logo aqui</text>
-  <text x="200" y="306" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" fill="#8b96a8">Troque em js/config.js</text>
+  <text x="200" y="280" text-anchor="middle" font-family="Outfit, Inter, Arial, sans-serif" font-size="38" font-weight="700" fill="#c9d1dc">Sua logo aqui</text>
 </svg>
