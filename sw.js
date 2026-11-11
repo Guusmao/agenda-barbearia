@@ -3,7 +3,7 @@
 // Versão com suporte a Push Notifications
 // ==========================================
 
-const CACHE_NAME = 'barbearia-cache-v27';
+const CACHE_NAME = 'barbearia-cache-v28';
 const urlsToCache = [
   './',
   './index.html',
@@ -50,16 +50,25 @@ self.addEventListener('activate', event => {
   );
 });
 
-// --- Fetch (cache-first para arquivos locais) ---
+// --- Fetch (rede primeiro, cache se estiver offline) ---
 self.addEventListener('fetch', event => {
   // Ignora requisições externas (banco de dados, etc)
   if (event.request.url.startsWith('http') && !event.request.url.includes(location.origin)) {
     return;
   }
 
+  // Rede primeiro: assim cada atualização do site chega na hora.
+  // O cache só é usado quando o celular está sem internet.
   event.respondWith(
-    caches.match(event.request)
-      .then(response => response || fetch(event.request))
+    fetch(event.request)
+      .then(response => {
+        if (event.request.method === 'GET' && response.ok) {
+          const copia = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, copia));
+        }
+        return response;
+      })
+      .catch(() => caches.match(event.request))
   );
 });
 
