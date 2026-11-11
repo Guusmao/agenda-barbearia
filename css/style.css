@@ -2766,3 +2766,13 @@ tr.row-vencido {
 /* Menu superior em uma linha só (evita o menu ficar alto e encostar na logo) */
 .navbar-brand, .navbar-links a, .btn-install { white-space: nowrap; }
 .main-logo { max-width: min(340px, 32vh); }
+
+/* Ícones de traço dos serviços */
+.icones { display: inline-flex; align-items: center; justify-content: center; gap: 4px; color: var(--accent); line-height: 0; }
+.icones svg { width: 28px; height: 28px; }
+.icones-2 svg { width: 24px; height: 24px; }
+.icones-3 svg { width: 22px; height: 22px; }
+.servico-card-icon .icones, .categoria-icon .icones { gap: 1px; }
+.servico-card-icon .icones-1 svg, .categoria-icon .icones-1 svg { width: 24px; height: 24px; }
+.servico-card-icon .icones-2 svg { width: 18px; height: 18px; }
+.servico-card-icon .icones-3 svg { width: 13px; height: 13px; }

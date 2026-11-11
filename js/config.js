@@ -23,7 +23,7 @@ window.APP_CONFIG = {
   // Com 2 ou mais, o cliente escolhe com quem cortar e cada um tem a própria agenda.
   // Com 1 ou nenhum, a escolha some e a agenda é única.
   barbeiros: [
-    { nome: 'Barbeiro 1', desc: 'Degradê e navalhado' },
+    { nome: 'Barbeiro 1', desc: 'Degradê e barbado' },
     { nome: 'Barbeiro 2', desc: 'Barba e corte clássico' }
   ],
 
@@ -45,23 +45,23 @@ window.APP_CONFIG = {
   // aPartirDe: true mostra "a partir de R$ X"
   categorias: [
     {
-      nome: 'Barbearia', icone: '✂️', classe: '',
+      nome: 'Barbearia', icone: 'tesoura', classe: '',
       servicos: [
-        { valor: 'Corte de Cabelo', nome: 'Corte de Cabelo', icone: '✂️', preco: 35, desc: 'Corte moderno e personalizado' },
-        { valor: 'Barba', nome: 'Barba', icone: '🪒', preco: 25, desc: 'Barba alinhada com navalha' },
-        { valor: 'Sobrancelha', nome: 'Sobrancelha', icone: '👁️', preco: 10, desc: 'Design e acabamento' },
-        { valor: 'Pezinho', nome: 'Pezinho', icone: '📏', preco: 10, desc: 'Acabamento na nuca' },
-        { valor: 'Progressiva', nome: 'Progressiva', icone: '🔥', preco: 70, aPartirDe: true, desc: 'Alisamento e tratamento capilar' }
+        { valor: 'Corte de Cabelo', nome: 'Corte de Cabelo', icone: 'tesoura', preco: 35, desc: 'Corte moderno e personalizado' },
+        { valor: 'Barba', nome: 'Barba', icone: 'barba', preco: 25, desc: 'Barba alinhada com navalha' },
+        { valor: 'Sobrancelha', nome: 'Sobrancelha', icone: 'olho', preco: 10, desc: 'Design e acabamento' },
+        { valor: 'Pezinho', nome: 'Pezinho', icone: 'regua', preco: 10, desc: 'Acabamento na nuca' },
+        { valor: 'Progressiva', nome: 'Progressiva', icone: 'chama', preco: 70, aPartirDe: true, desc: 'Alisamento e tratamento capilar' }
       ]
     },
     {
-      nome: 'Combos Promocionais', icone: '🎁', classe: 'combo',
+      nome: 'Combos Promocionais', icone: 'presente', classe: 'combo',
       servicos: [
-        { valor: 'Combo: Cabelo + Barba', nome: 'Cabelo + Barba', icone: '✂️🧔‍♂️', preco: 50, desc: 'Combo completo' },
-        { valor: 'Combo: Cabelo + Sobrancelha', nome: 'Cabelo + Sobrancelha', icone: '✂️👁️', preco: 40, desc: 'Corte + design' },
-        { valor: 'Combo: Barba + Sobrancelha', nome: 'Barba + Sobrancelha', icone: '🧔‍♂️👁️', preco: 32, desc: 'Barba + design' },
-        { valor: 'Combo: Barba + Pezinho', nome: 'Barba + Pezinho', icone: '🧔‍♂️📏', preco: 32, desc: 'Barba + acabamento' },
-        { valor: 'Combo: Cabelo + Barba + Sobrancelha', nome: 'Cabelo + Barba + Sobrancelha', icone: '✂️🧔‍♂️👁️', preco: 50, desc: 'Combo premium completo' }
+        { valor: 'Combo: Cabelo + Barba', nome: 'Cabelo + Barba', icone: 'tesoura+barba', preco: 50, desc: 'Combo completo' },
+        { valor: 'Combo: Cabelo + Sobrancelha', nome: 'Cabelo + Sobrancelha', icone: 'tesoura+olho', preco: 40, desc: 'Corte + design' },
+        { valor: 'Combo: Barba + Sobrancelha', nome: 'Barba + Sobrancelha', icone: 'barba+olho', preco: 32, desc: 'Barba + design' },
+        { valor: 'Combo: Barba + Pezinho', nome: 'Barba + Pezinho', icone: 'barba+regua', preco: 32, desc: 'Barba + acabamento' },
+        { valor: 'Combo: Cabelo + Barba + Sobrancelha', nome: 'Cabelo + Barba + Sobrancelha', icone: 'tesoura+barba+olho', preco: 50, desc: 'Combo premium completo' }
       ]
     }
   ]
