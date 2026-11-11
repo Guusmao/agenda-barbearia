@@ -893,20 +893,6 @@ section {
   border-color: rgba(243, 156, 18, 0.3);
 }
 
-.servico-card-catalogo.massoterapia::before {
-  background: linear-gradient(180deg, #9b59b6, #8e44ad);
-}
-.servico-card-catalogo.massoterapia:hover {
-  border-color: rgba(155, 89, 182, 0.3);
-}
-
-.servico-card-catalogo.estetica::before {
-  background: linear-gradient(180deg, #2ecc71, #27ae60);
-}
-.servico-card-catalogo.estetica:hover {
-  border-color: rgba(46, 204, 113, 0.3);
-}
-
 .servico-card-catalogo.destaque {
   background: rgba(var(--accent-rgb), 0.06);
   border-color: var(--border-gold);

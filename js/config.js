@@ -17,7 +17,7 @@ window.APP_CONFIG = {
   corDestaque: '#3d7eff',               // Cor dos botões, preços e detalhes (formato #rrggbb)
   tituloPagina: 'Agendaí Barber | Agende seu horário',
   descricaoPagina: 'Agende seu horário online. Cortes modernos, barba e muito mais com os melhores profissionais.',
-  textoCatalogo: 'Barbearia, massoterapia e estética em um só lugar. Confira tudo o que oferecemos.',
+  textoCatalogo: 'Corte, barba e acabamento. Confira tudo o que oferecemos.',
 
   // --- Agenda ---
   horarios: [
@@ -50,24 +50,6 @@ window.APP_CONFIG = {
         { valor: 'Combo: Barba + Sobrancelha', nome: 'Barba + Sobrancelha', icone: '🧔‍♂️👁️', preco: 32, desc: 'Barba + design' },
         { valor: 'Combo: Barba + Pezinho', nome: 'Barba + Pezinho', icone: '🧔‍♂️📏', preco: 32, desc: 'Barba + acabamento' },
         { valor: 'Combo: Cabelo + Barba + Sobrancelha', nome: 'Cabelo + Barba + Sobrancelha', icone: '✂️🧔‍♂️👁️', preco: 50, desc: 'Combo premium completo' }
-      ]
-    },
-    {
-      nome: 'Liberação Miofascial com Ventosa', icone: '💆', classe: 'massoterapia',
-      servicos: [
-        { valor: 'Lib. Miofacial c/ Ventosa (Costas)', nome: 'Lib. Miofacial c/ Ventosa (Costas)', titulo: 'Costas', icone: '💆', preco: 65, desc: 'Ventosaterapia nas costas' },
-        { valor: 'Lib. Miofacial c/ Ventosa (Membro Individual)', nome: 'Lib. Miofacial c/ Ventosa (Membro Indiv.)', titulo: 'Ombro / Braço / Coxa / Perna', icone: '💆', preco: 40, desc: 'Membro individual' },
-        { valor: 'Lib. Miofacial c/ Ventosa (Membro Bilateral)', nome: 'Lib. Miofacial c/ Ventosa (Membro Bilat.)', titulo: 'Ombro / Braço / Coxa / Perna', icone: '💆', preco: 70, desc: 'Bilateral (ambos os lados)' },
-        { valor: 'Lib. Miofacial c/ Ventosa (Peitoral)', nome: 'Lib. Miofacial c/ Ventosa (Peitoral)', titulo: 'Peitoral', icone: '💆', preco: 45, desc: 'Ventosaterapia no peitoral' },
-        { valor: 'Lib. Miofacial c/ Ventosa (Corpo Inteiro)', nome: 'Lib. Miofacial c/ Ventosa (Corpo Inteiro)', titulo: 'Corpo Inteiro', icone: '💆', preco: 150, desc: 'Sessão completa em todo o corpo', destaque: true }
-      ]
-    },
-    {
-      nome: 'Estética & Bem-Estar', icone: '🧖‍♂️', classe: 'estetica',
-      servicos: [
-        { valor: 'Massagem Relaxante', nome: 'Massagem Relaxante', icone: '🧖‍♂️', preco: 60, desc: 'Relaxamento muscular profundo' },
-        { valor: 'Limpeza de Pele', nome: 'Limpeza de Pele', icone: '🧴', preco: 55, desc: 'Limpeza profunda e revitalização' },
-        { valor: 'Drenagem Linfática', nome: 'Drenagem Linfática', icone: '🍃', preco: 60, desc: 'Redução de inchaço e desintoxicação' }
       ]
     }
   ]
