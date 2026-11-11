@@ -215,6 +215,28 @@
               <input type="password" id="adminPass" class="form-input" autocomplete="current-password" required>
             </div>
             <button type="submit" class="btn btn-primary" style="width: 100%;">Acessar Painel</button>
+            <button type="button" class="link-senha" id="btnCriarSenha">Primeiro acesso ou esqueceu a senha?</button>
+          </form>
+
+          <!-- Criar ou recuperar senha com código enviado por e-mail -->
+          <form id="adminSenhaForm" novalidate hidden>
+            <p class="senha-passo" id="senhaPassoTexto">Informe seu e-mail. Vamos enviar um código para você criar a senha.</p>
+            <div class="form-group" style="text-align: left;">
+              <label for="senhaEmail">E-mail</label>
+              <input type="email" id="senhaEmail" class="form-input" autocomplete="username" required>
+            </div>
+            <div id="senhaCodigoGroup" hidden>
+              <div class="form-group" style="text-align: left;">
+                <label for="senhaCodigo">Código recebido no e-mail</label>
+                <input type="text" id="senhaCodigo" class="form-input" inputmode="numeric" autocomplete="one-time-code" maxlength="8">
+              </div>
+              <div class="form-group" style="text-align: left;">
+                <label for="senhaNova">Nova senha (mínimo 8 caracteres)</label>
+                <input type="password" id="senhaNova" class="form-input" autocomplete="new-password" minlength="8">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" id="btnSenhaEnviar" style="width: 100%;">Enviar código</button>
+            <button type="button" class="link-senha" id="btnVoltarLogin">Voltar para o login</button>
           </form>
         </div>
       </div>
@@ -500,16 +522,16 @@
   <!-- Cliente do banco (Neon), gerado com: npx esbuild (ver README) -->
   <script src="js/vendor/neon-js-0.10.2.min.js"></script>
   <!-- App Scripts -->
-  <script src="js/config.js?v=17"></script>
-  <script src="js/config-render.js?v=17"></script>
-  <script src="js/ui-components.js?v=17"></script>
-  <script src="js/db.js?v=17"></script>
-  <script src="js/auth.js?v=17"></script>
-  <script src="js/auth-ui.js?v=17"></script>
-  <script src="js/agendamento.js?v=17"></script>
-  <script src="js/meus_agendamentos.js?v=17"></script>
-  <script src="js/admin.js?v=17"></script>
-  <script src="js/router.js?v=17"></script>
+  <script src="js/config.js?v=18"></script>
+  <script src="js/config-render.js?v=18"></script>
+  <script src="js/ui-components.js?v=18"></script>
+  <script src="js/db.js?v=18"></script>
+  <script src="js/auth.js?v=18"></script>
+  <script src="js/auth-ui.js?v=18"></script>
+  <script src="js/agendamento.js?v=18"></script>
+  <script src="js/meus_agendamentos.js?v=18"></script>
+  <script src="js/admin.js?v=18"></script>
+  <script src="js/router.js?v=18"></script>
 
   <!-- Navbar scroll + mobile menu -->
   <script>

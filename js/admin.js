@@ -111,6 +111,65 @@
         if (await entrarSeForAdmin(true)) showToast('Autenticado com sucesso!', 'success');
       });
     }
+
+    initCriarSenha(adminLoginForm);
+  }
+
+  // --- Criar ou recuperar a senha do painel (código por e-mail) ---
+  function initCriarSenha(loginForm) {
+    const senhaForm = document.getElementById('adminSenhaForm');
+    const btnAbrir = document.getElementById('btnCriarSenha');
+    if (!senhaForm || !btnAbrir) return;
+
+    const emailInput = document.getElementById('senhaEmail');
+    const codigoGroup = document.getElementById('senhaCodigoGroup');
+    const passoTexto = document.getElementById('senhaPassoTexto');
+    const btnEnviar = document.getElementById('btnSenhaEnviar');
+    let codigoEnviado = false;
+
+    function mostrar(formSenha) {
+      loginForm.hidden = formSenha;
+      senhaForm.hidden = !formSenha;
+      codigoEnviado = false;
+      codigoGroup.hidden = true;
+      btnEnviar.textContent = 'Enviar código';
+      passoTexto.textContent = 'Informe seu e-mail. Vamos enviar um código para você criar a senha.';
+    }
+
+    btnAbrir.addEventListener('click', () => {
+      emailInput.value = document.getElementById('adminUser').value.trim();
+      mostrar(true);
+    });
+    document.getElementById('btnVoltarLogin').addEventListener('click', () => mostrar(false));
+
+    senhaForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+      if (!email) { showToast('Informe seu e-mail.', 'warning'); return; }
+
+      if (!codigoEnviado) {
+        const { error } = await window.db.auth.emailOtp.sendVerificationOtp({ email, type: 'forget-password' });
+        if (error) { showToast('Não foi possível enviar o código: ' + error.message, 'error'); return; }
+        codigoEnviado = true;
+        codigoGroup.hidden = false;
+        btnEnviar.textContent = 'Salvar senha';
+        passoTexto.textContent = 'Enviamos um código para ' + email + '. Confira também o spam.';
+        return;
+      }
+
+      const otp = document.getElementById('senhaCodigo').value.trim();
+      const password = document.getElementById('senhaNova').value;
+      if (!otp) { showToast('Digite o código do e-mail.', 'warning'); return; }
+      if (password.length < 8) { showToast('A senha precisa ter pelo menos 8 caracteres.', 'warning'); return; }
+
+      const { error } = await window.db.auth.emailOtp.resetPassword({ email, otp, password });
+      if (error) { showToast('Código inválido ou expirado. Peça um novo.', 'error'); return; }
+
+      showToast('Senha salva! Agora entre com seu e-mail e a nova senha.', 'success');
+      document.getElementById('adminUser').value = email;
+      document.getElementById('adminPass').value = '';
+      mostrar(false);
+    });
   }
 
   // --- Modal DOM ---

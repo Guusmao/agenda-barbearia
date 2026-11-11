@@ -2732,3 +2732,23 @@ tr.row-vencido {
   font-size: 0.9rem;
   padding: 16px 8px;
 }
+
+/* --- Criar / recuperar senha do painel --- */
+.link-senha {
+  display: block;
+  width: 100%;
+  margin-top: 14px;
+  background: none;
+  border: 0;
+  color: var(--accent-light);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.senha-passo {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 18px;
+}

@@ -3,7 +3,7 @@
 // Versão com suporte a Push Notifications
 // ==========================================
 
-const CACHE_NAME = 'barbearia-cache-v26';
+const CACHE_NAME = 'barbearia-cache-v27';
 const urlsToCache = [
   './',
   './index.html',
