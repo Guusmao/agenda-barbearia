@@ -112,28 +112,20 @@
       });
     }
 
-    initCriarSenha(adminLoginForm);
+    initCriarSenha(adminLoginForm, entrarSeForAdmin);
   }
 
-  // --- Criar ou recuperar a senha do painel (código por e-mail) ---
-  function initCriarSenha(loginForm) {
+  // --- Primeiro acesso: cria a conta na tela (sem depender de e-mail) ---
+  function initCriarSenha(loginForm, entrarSeForAdmin) {
     const senhaForm = document.getElementById('adminSenhaForm');
     const btnAbrir = document.getElementById('btnCriarSenha');
     if (!senhaForm || !btnAbrir) return;
 
     const emailInput = document.getElementById('senhaEmail');
-    const codigoGroup = document.getElementById('senhaCodigoGroup');
-    const passoTexto = document.getElementById('senhaPassoTexto');
-    const btnEnviar = document.getElementById('btnSenhaEnviar');
-    let codigoEnviado = false;
 
-    function mostrar(formSenha) {
-      loginForm.hidden = formSenha;
-      senhaForm.hidden = !formSenha;
-      codigoEnviado = false;
-      codigoGroup.hidden = true;
-      btnEnviar.textContent = 'Enviar código';
-      passoTexto.textContent = 'Informe seu e-mail. Vamos enviar um código para você criar a senha.';
+    function mostrar(formConta) {
+      loginForm.hidden = formConta;
+      senhaForm.hidden = !formConta;
     }
 
     btnAbrir.addEventListener('click', () => {
@@ -144,31 +136,27 @@
 
     senhaForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const name = document.getElementById('contaNome').value.trim();
       const email = emailInput.value.trim();
-      if (!email) { showToast('Informe seu e-mail.', 'warning'); return; }
+      const password = document.getElementById('senhaNova').value;
+      if (!name || !email) { showToast('Preencha nome e e-mail.', 'warning'); return; }
+      if (password.length < 8) { showToast('A senha precisa ter pelo menos 8 caracteres.', 'warning'); return; }
 
-      if (!codigoEnviado) {
-        const { error } = await window.db.auth.emailOtp.sendVerificationOtp({ email, type: 'forget-password' });
-        if (error) { showToast('Não foi possível enviar o código: ' + error.message, 'error'); return; }
-        codigoEnviado = true;
-        codigoGroup.hidden = false;
-        btnEnviar.textContent = 'Salvar senha';
-        passoTexto.textContent = 'Enviamos um código para ' + email + '. Confira também o spam.';
+      const { error } = await window.db.auth.signUp.email({ email, password, name });
+      if (error) {
+        const jaExiste = /exist|already/i.test(error.message || '');
+        showToast(jaExiste ? 'Esse e-mail já tem conta. Entre com sua senha.' : 'Não foi possível criar a conta: ' + error.message, 'error');
         return;
       }
 
-      const otp = document.getElementById('senhaCodigo').value.trim();
-      const password = document.getElementById('senhaNova').value;
-      if (!otp) { showToast('Digite o código do e-mail.', 'warning'); return; }
-      if (password.length < 8) { showToast('A senha precisa ter pelo menos 8 caracteres.', 'warning'); return; }
-
-      const { error } = await window.db.auth.emailOtp.resetPassword({ email, otp, password });
-      if (error) { showToast('Código inválido ou expirado. Peça um novo.', 'error'); return; }
-
-      showToast('Senha salva! Agora entre com seu e-mail e a nova senha.', 'success');
       document.getElementById('adminUser').value = email;
       document.getElementById('adminPass').value = '';
       mostrar(false);
+      if (await entrarSeForAdmin(false)) {
+        showToast('Conta criada! Bem-vindo ao painel.', 'success');
+      } else {
+        showToast('Conta criada! Assim que o acesso for liberado, entre com seu e-mail e senha.', 'success');
+      }
     });
   }
 
