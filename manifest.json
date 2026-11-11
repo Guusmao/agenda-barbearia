@@ -1,7 +1,7 @@
 {
-  "name": "Barbearia Premium",
-  "short_name": "AgendBarber",
-  "description": "Agende seu horário online na Barbearia Premium.",
+  "name": "Agendaí Barber",
+  "short_name": "Agendaí",
+  "description": "Agende seu horário na barbearia pelo celular.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0e1116",

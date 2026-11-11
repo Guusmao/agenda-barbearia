@@ -1,9 +1,9 @@
 // ==========================================
-// Service Worker - Barbearia Premium
+// Service Worker - Agendaí Barber
 // Versão com suporte a Push Notifications
 // ==========================================
 
-const CACHE_NAME = 'barbearia-cache-v22';
+const CACHE_NAME = 'barbearia-cache-v23';
 const urlsToCache = [
   './',
   './index.html',
@@ -22,7 +22,7 @@ const urlsToCache = [
   './js/ui-components.js',
   './img/icon-192.png',
   './img/icon-512.png',
-  './img/agendbarber_icon.png'
+  './img/agendai-icon.png'
 ];
 
 // --- Install ---
