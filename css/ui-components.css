@@ -1,0 +1,248 @@
+/* ========================================
+   UI COMPONENTS - PREMIUM FEEDBACK SYSTEM
+   Toasts (Top-Right) & Modals (Centered)
+   ======================================== */
+
+:root {
+    --ui-bg: rgba(15, 15, 15, 0.85);
+    --ui-glass: rgba(255, 255, 255, 0.05);
+    --ui-border: rgba(201, 168, 76, 0.3);
+    --ui-gold: #c9a84c;
+    --ui-gold-light: #e4c76b;
+    --ui-gold-glow: rgba(201, 168, 76, 0.3);
+    --ui-success: #2ecc71;
+    --ui-error: #e74c3c;
+    --ui-info: #3498db;
+    --ui-radius: 16px;
+    --ui-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    --ui-transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- Toast Container --- */
+.ui-toast-container {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    pointer-events: none;
+}
+
+/* --- Toast Item --- */
+.ui-toast {
+    position: relative;
+    min-width: 320px;
+    max-width: 400px;
+    background: var(--ui-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--ui-border);
+    border-radius: var(--ui-radius);
+    padding: 16px 20px;
+    box-shadow: var(--ui-shadow);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    pointer-events: auto;
+    overflow: hidden;
+    animation: ui-slide-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transition: var(--ui-transition);
+}
+
+.ui-toast.ui-fade-out {
+    animation: ui-slide-out 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes ui-slide-in {
+    from { transform: translateX(120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes ui-slide-out {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(120%); opacity: 0; }
+}
+
+.ui-toast-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.ui-toast.success .ui-toast-icon { color: var(--ui-success); background: rgba(46, 204, 113, 0.1); }
+.ui-toast.error .ui-toast-icon { color: var(--ui-error); background: rgba(231, 76, 60, 0.1); }
+.ui-toast.info .ui-toast-icon { color: var(--ui-info); background: rgba(52, 152, 219, 0.1); }
+.ui-toast.warning .ui-toast-icon { color: var(--ui-gold); background: rgba(201, 168, 76, 0.1); }
+
+.ui-toast-content {
+    flex-grow: 1;
+}
+
+.ui-toast-message {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #f5f5f5;
+    line-height: 1.4;
+}
+
+/* --- Toast Progress Bar --- */
+.ui-toast-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: var(--ui-gold);
+    width: 100%;
+    transform-origin: left;
+}
+
+/* --- Modal Overlay --- */
+.ui-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.ui-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* --- Modal Card --- */
+.ui-modal-card {
+    background: var(--ui-bg);
+    border: 1px solid var(--ui-border);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+    transform: scale(0.9) translateY(20px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ui-modal-overlay.active .ui-modal-card {
+    transform: scale(1) translateY(0);
+}
+
+.ui-modal-header {
+    padding: 32px 32px 16px;
+    text-align: center;
+}
+
+.ui-modal-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.ui-modal-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #f5f5f5;
+    font-family: 'Outfit', sans-serif;
+}
+
+.ui-modal-body {
+    padding: 0 32px 32px;
+    text-align: center;
+}
+
+.ui-modal-text {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+}
+
+.ui-modal-footer {
+    padding: 0 32px 32px;
+    display: flex;
+    gap: 12px;
+}
+
+.ui-modal-btn {
+    flex: 1;
+    padding: 14px 20px;
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: var(--ui-transition);
+    border: none;
+    font-family: inherit;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.ui-modal-btn-cancel {
+    background: rgba(255, 255, 255, 0.05);
+    color: #f5f5f5;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ui-modal-btn-cancel:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.ui-modal-btn-confirm {
+    background: linear-gradient(135deg, #c9a84c, #e4c76b);
+    color: #0a0a0a;
+    box-shadow: 0 5px 15px rgba(201, 168, 76, 0.3);
+}
+
+.ui-modal-btn-confirm:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(201, 168, 76, 0.5);
+}
+
+/* Specific button style for error/danger confirmation */
+.ui-modal-btn-danger {
+    background: linear-gradient(135deg, #e74c3c, #f1948a);
+    color: white;
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+}
+
+.ui-modal-btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.5);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 480px) {
+    .ui-toast-container {
+        top: auto;
+        bottom: 24px;
+        left: 20px;
+        right: 20px;
+    }
+    .ui-toast {
+        min-width: 0;
+        width: 100%;
+    }
+    .ui-modal-card {
+        max-width: none;
+        margin: 0;
+    }
+    .ui-modal-footer {
+        flex-direction: column-reverse;
+    }
+}

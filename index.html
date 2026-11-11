@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Barbearia Premium - Agende seu horário online. Cortes modernos, barba e muito mais com os melhores profissionais.">
+  <title>Barbearia Premium | Agendamento Online</title>
+  <link rel="stylesheet" href="css/style.css?v=12">
+  <link rel="stylesheet" href="css/ui-components.css?v=12">
+  <link rel="icon" href="img/icon-192.png" type="image/png">
+  <link rel="manifest" href="manifest.json?v=5">
+  <link rel="apple-touch-icon" sizes="192x192" href="img/icon-192.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="img/icon-512.png">
+  <meta name="theme-color" content="#0a0a0a">
+</head>
+<body>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="#" class="navbar-brand">
+        AgendBarber
+      </a>
+      <div class="navbar-links" id="navLinks">
+        <a href="#inicio">Início</a>
+        <a href="#servicos">Nossos Serviços</a>
+        <a href="#agendamento">Agendar</a>
+        <a href="#meus-agendamentos">Meus Horários</a>
+        <a href="#admin">Admin</a>
+        <a href="#" class="install-link" id="installLink">Baixar Aplicativo</a>
+      </div>
+      <div class="navbar-actions">
+        <div class="user-profile" id="userProfile">
+          <!-- Dinâmico via JS -->
+          <button class="btn-login-trigger" id="btnLoginTrigger">
+            <span class="icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+              </svg>
+            </span>
+            <span class="text">Identificar-se</span>
+          </button>
+        </div>
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== VIEWS ==================== -->
+  <main id="app-content">
+
+    <!-- HOME VIEW -->
+    <div id="view-home" class="view active">
+      <!-- ==================== HERO ==================== -->
+      <section class="hero" id="inicio">
+    <div class="hero-bg">
+      <div class="hero-decor"></div>
+      <div class="hero-decor"></div>
+      <div class="hero-decor"></div>
+    </div>
+    <div class="hero-content">
+      <img src="img/logo_seu_carlos_hero.jpg" alt="Logo Seu Carlos Barber & Massoterapia" class="main-logo animate-fade-up">
+      <div class="hero-badge">
+        ✦ Experiência Premium
+      </div>
+      <h1>Estilo e <span class="gold">Precisão</span> em Cada Corte</h1>
+      <p>Transforme seu visual com os melhores profissionais. Agende online de forma rápida e prática, sem filas e sem espera.</p>
+      <div class="hero-buttons" style="flex-direction: column; align-items: center;">
+        <div style="display: flex; gap: 16px; justify-content: center;">
+          <a href="#agendamento" class="btn btn-primary">Agendar Horário</a>
+
+        </div>
+        <button id="installBtn" class="btn btn-install" style="margin-top: 20px;">📲 Baixar Aplicativo</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== AGENDAMENTO ==================== -->
+  <section id="agendamento">
+    <div class="container">
+      <div class="section-header animate-fade-up">
+        <span class="section-tag">Reserve seu horário</span>
+        <h2>Agendamento Online</h2>
+        <p>Escolha o serviço, preencha seus dados e selecione o melhor horário para você.</p>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="booking-container animate-fade-up">
+        <form id="bookingForm" novalidate>
+          <!-- Serviço -->
+          <div class="form-group">
+            <label>Escolha o Serviço <span class="required">*</span></label>
+            <div class="service-selection-grid" id="serviceSelection">
+              <div class="service-item" data-value="Corte de Cabelo">
+                <span class="service-item-icon">✂️</span>
+                <span class="service-item-name">Corte de Cabelo</span>
+                <span class="service-item-price">R$ 35,00</span>
+              </div>
+              <div class="service-item" data-value="Barba">
+                <span class="service-item-icon">🪒</span>
+                <span class="service-item-name">Barba</span>
+                <span class="service-item-price">R$ 25,00</span>
+              </div>
+              <div class="service-item" data-value="Sobrancelha">
+                <span class="service-item-icon">👁️</span>
+                <span class="service-item-name">Sobrancelha</span>
+                <span class="service-item-price">R$ 10,00</span>
+              </div>
+              <div class="service-item" data-value="Pezinho">
+                <span class="service-item-icon">📏</span>
+                <span class="service-item-name">Pezinho</span>
+                <span class="service-item-price">R$ 10,00</span>
+              </div>
+              <div class="service-item" data-value="Progressiva">
+                <span class="service-item-icon">🔥</span>
+                <span class="service-item-name">Progressiva</span>
+                <span class="service-item-price">apartir de R$ 70,00</span>
+              </div>
+              <div class="service-item" data-value="Combo: Cabelo + Barba">
+                <span class="service-item-icon">✂️🧔‍♂️</span>
+                <span class="service-item-name">Cabelo + Barba</span>
+                <span class="service-item-price">R$ 50,00</span>
+              </div>
+              <div class="service-item" data-value="Combo: Cabelo + Sobrancelha">
+                <span class="service-item-icon">✂️👁️</span>
+                <span class="service-item-name">Cabelo + Sobrancelha</span>
+                <span class="service-item-price">R$ 40,00</span>
+              </div>
+              <div class="service-item" data-value="Combo: Barba + Sobrancelha">
+                <span class="service-item-icon">🧔‍♂️👁️</span>
+                <span class="service-item-name">Barba + Sobrancelha</span>
+                <span class="service-item-price">R$ 32,00</span>
+              </div>
+              <div class="service-item" data-value="Combo: Barba + Pezinho">
+                <span class="service-item-icon">🧔‍♂️📏</span>
+                <span class="service-item-name">Barba + Pezinho</span>
+                <span class="service-item-price">R$ 32,00</span>
+              </div>
+              <div class="service-item" data-value="Combo: Cabelo + Barba + Sobrancelha">
+                <span class="service-item-icon">✂️🧔‍♂️👁️</span>
+                <span class="service-item-name">Cabelo + Barba + Sobrancelha</span>
+                <span class="service-item-price">R$ 50,00</span>
+              </div>
+              <div class="service-item" data-value="Lib. Miofacial c/ Ventosa (Costas)">
+                <span class="service-item-icon">💆</span>
+                <span class="service-item-name">Lib. Miofacial c/ Ventosa (Costas)</span>
+                <span class="service-item-price">R$ 65,00</span>
+              </div>
+              <div class="service-item" data-value="Lib. Miofacial c/ Ventosa (Membro Individual)">
+                <span class="service-item-icon">💆</span>
+                <span class="service-item-name">Lib. Miofacial c/ Ventosa (Membro Indiv.)</span>
+                <span class="service-item-price">R$ 40,00</span>
+              </div>
+              <div class="service-item" data-value="Lib. Miofacial c/ Ventosa (Membro Bilateral)">
+                <span class="service-item-icon">💆</span>
+                <span class="service-item-name">Lib. Miofacial c/ Ventosa (Membro Bilat.)</span>
+                <span class="service-item-price">R$ 70,00</span>
+              </div>
+              <div class="service-item" data-value="Lib. Miofacial c/ Ventosa (Peitoral)">
+                <span class="service-item-icon">💆</span>
+                <span class="service-item-name">Lib. Miofacial c/ Ventosa (Peitoral)</span>
+                <span class="service-item-price">R$ 45,00</span>
+              </div>
+              <div class="service-item" data-value="Lib. Miofacial c/ Ventosa (Corpo Inteiro)">
+                <span class="service-item-icon">💆</span>
+                <span class="service-item-name">Lib. Miofacial c/ Ventosa (Corpo Inteiro)</span>
+                <span class="service-item-price">R$ 150,00</span>
+              </div>
+              <div class="service-item" data-value="Massagem Relaxante">
+                <span class="service-item-icon">🧖‍♂️</span>
+                <span class="service-item-name">Massagem Relaxante</span>
+                <span class="service-item-price">R$ 60,00</span>
+              </div>
+              <div class="service-item" data-value="Limpeza de Pele">
+                <span class="service-item-icon">🧴</span>
+                <span class="service-item-name">Limpeza de Pele</span>
+                <span class="service-item-price">R$ 55,00</span>
+              </div>
+              <div class="service-item" data-value="Drenagem Linfática">
+                <span class="service-item-icon">🍃</span>
+                <span class="service-item-name">Drenagem Linfática</span>
+                <span class="service-item-price">R$ 60,00</span>
+              </div>
+            </div>
+            <input type="hidden" id="servico" required>
+          </div>
+
+          <!-- Nome e Telefone -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nome">Nome Completo <span class="required">*</span></label>
+              <input type="text" id="nome" class="form-input" placeholder="Seu nome" required>
+            </div>
+            <div class="form-group">
+              <label for="telefone">Telefone / WhatsApp <span class="required">*</span></label>
+              <input type="tel" id="telefone" class="form-input" placeholder="(00) 00000-0000" maxlength="15" pattern="\(\d{2}\)\s\d{4,5}-\d{4}" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+            </div>
+          </div>
+
+          <!-- Data -->
+          <div class="form-group">
+            <label for="data">Data do Agendamento <span class="required">*</span></label>
+            <input type="date" id="data" class="form-input" required>
+          </div>
+
+          <!-- Horários -->
+          <div class="form-group">
+            <label class="time-slots-label">Horário Disponível <span class="required">*</span></label>
+            <div class="time-slots-grid" id="timeSlotsGrid">
+              <!-- Slots gerados via JS -->
+            </div>
+            <input type="hidden" id="horarioSelecionado" required>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="btn btn-primary btn-submit" id="btnSubmit">
+            <span class="btn-text">Confirmar Agendamento</span>
+            <div class="spinner"></div>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+</div> <!-- Fim view-home -->
+
+    <!-- SERVIÇOS VIEW -->
+    <div id="servicos" class="view" style="display: none;">
+      <section style="padding-top: 140px; min-height: 100vh;">
+        <div class="container">
+          <div class="section-header animate-fade-up">
+            <span class="section-tag">Conheça nosso cardápio</span>
+            <h2>Todos os Nossos <span class="gold">Serviços</span></h2>
+            <p>Barbearia, massoterapia e estética em um só lugar. Confira tudo o que oferecemos.</p>
+            <div class="section-divider"></div>
+          </div>
+
+          <!-- CATEGORIA: BARBEARIA -->
+          <div class="servicos-categoria animate-fade-up">
+            <div class="categoria-header">
+              <span class="categoria-icon">✂️</span>
+              <h3>Barbearia</h3>
+            </div>
+            <div class="servicos-lista-grid">
+              <div class="servico-card-catalogo">
+                <span class="servico-card-icon">✂️</span>
+                <div class="servico-card-info">
+                  <h4>Corte de Cabelo</h4>
+                  <p class="servico-card-desc">Corte moderno e personalizado</p>
+                </div>
+                <span class="servico-card-preco">R$ 35,00</span>
+              </div>
+              <div class="servico-card-catalogo">
+                <span class="servico-card-icon">🪒</span>
+                <div class="servico-card-info">
+                  <h4>Barba</h4>
+                  <p class="servico-card-desc">Barba alinhada com navalha</p>
+                </div>
+                <span class="servico-card-preco">R$ 25,00</span>
+              </div>
+              <div class="servico-card-catalogo">
+                <span class="servico-card-icon">👁️</span>
+                <div class="servico-card-info">
+                  <h4>Sobrancelha</h4>
+                  <p class="servico-card-desc">Design e acabamento</p>
+                </div>
+                <span class="servico-card-preco">R$ 10,00</span>
+              </div>
+              <div class="servico-card-catalogo">
+                <span class="servico-card-icon">📏</span>
+                <div class="servico-card-info">
+                  <h4>Pezinho</h4>
+                  <p class="servico-card-desc">Acabamento na nuca</p>
+                </div>
+                <span class="servico-card-preco">R$ 10,00</span>
+              </div>
+              <div class="servico-card-catalogo">
+                <span class="servico-card-icon">🔥</span>
+                <div class="servico-card-info">
+                  <h4>Progressiva</h4>
+                  <p class="servico-card-desc">Alisamento e tratamento capilar</p>
+                </div>
+                <span class="servico-card-preco">apartir de R$ 70,00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- CATEGORIA: COMBOS -->
+          <div class="servicos-categoria animate-fade-up">
+            <div class="categoria-header">
+              <span class="categoria-icon">🎁</span>
+              <h3>Combos Promocionais</h3>
+            </div>
+            <div class="servicos-lista-grid">
+              <div class="servico-card-catalogo combo">
+                <span class="servico-card-icon">✂️🧔‍♂️</span>
+                <div class="servico-card-info">
+                  <h4>Cabelo + Barba</h4>
+                  <p class="servico-card-desc">Combo completo</p>
+                </div>
+                <span class="servico-card-preco">R$ 50,00</span>
+              </div>
+              <div class="servico-card-catalogo combo">
+                <span class="servico-card-icon">✂️👁️</span>
+                <div class="servico-card-info">
+                  <h4>Cabelo + Sobrancelha</h4>
+                  <p class="servico-card-desc">Corte + design</p>
+                </div>
+                <span class="servico-card-preco">R$ 40,00</span>
+              </div>
+              <div class="servico-card-catalogo combo">
+                <span class="servico-card-icon">🧔‍♂️👁️</span>
+                <div class="servico-card-info">
+                  <h4>Barba + Sobrancelha</h4>
+                  <p class="servico-card-desc">Barba + design</p>
+                </div>
+                <span class="servico-card-preco">R$ 32,00</span>
+              </div>
+              <div class="servico-card-catalogo combo">
+                <span class="servico-card-icon">🧔‍♂️📏</span>
+                <div class="servico-card-info">
+                  <h4>Barba + Pezinho</h4>
+                  <p class="servico-card-desc">Barba + acabamento</p>
+                </div>
+                <span class="servico-card-preco">R$ 32,00</span>
+              </div>
+              <div class="servico-card-catalogo combo">
+                <span class="servico-card-icon">✂️🧔‍♂️👁️</span>
+                <div class="servico-card-info">
+                  <h4>Cabelo + Barba + Sobrancelha</h4>
+                  <p class="servico-card-desc">Combo premium completo</p>
+                </div>
+                <span class="servico-card-preco">R$ 50,00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- CATEGORIA: MASSOTERAPIA -->
+          <div class="servicos-categoria animate-fade-up">
+            <div class="categoria-header">
+              <span class="categoria-icon">💆</span>
+              <h3>Liberação Miofascial com Ventosa</h3>
+            </div>
+            <div class="servicos-lista-grid">
+              <div class="servico-card-catalogo massoterapia">
+                <span class="servico-card-icon">💆</span>
+                <div class="servico-card-info">
+                  <h4>Costas</h4>
+                  <p class="servico-card-desc">Ventosaterapia nas costas</p>
+                </div>
+                <span class="servico-card-preco">R$ 65,00</span>
+              </div>
+              <div class="servico-card-catalogo massoterapia">
+                <span class="servico-card-icon">💆</span>
+                <div class="servico-card-info">
+                  <h4>Ombro / Braço / Coxa / Perna</h4>
+                  <p class="servico-card-desc">Membro individual</p>
+                </div>
+                <span class="servico-card-preco">R$ 40,00</span>
+              </div>
+              <div class="servico-card-catalogo massoterapia">
+                <span class="servico-card-icon">💆</span>
+                <div class="servico-card-info">
+                  <h4>Ombro / Braço / Coxa / Perna</h4>
+                  <p class="servico-card-desc">Bilateral (ambos os lados)</p>
+                </div>
+                <span class="servico-card-preco">R$ 70,00</span>
+              </div>
+              <div class="servico-card-catalogo massoterapia">
+                <span class="servico-card-icon">💆</span>
+                <div class="servico-card-info">
+                  <h4>Peitoral</h4>
+                  <p class="servico-card-desc">Ventosaterapia no peitoral</p>
+                </div>
+                <span class="servico-card-preco">R$ 45,00</span>
+              </div>
+              <div class="servico-card-catalogo massoterapia destaque">
+                <span class="servico-card-icon">💆</span>
+                <div class="servico-card-info">
+                  <h4>Corpo Inteiro</h4>
+                  <p class="servico-card-desc">Sessão completa em todo o corpo</p>
+                </div>
+                <span class="servico-card-preco">R$ 150,00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- CATEGORIA: ESTÉTICA & BEM-ESTAR -->
+          <div class="servicos-categoria animate-fade-up">
+            <div class="categoria-header">
+              <span class="categoria-icon">🧖‍♂️</span>
+              <h3>Estética & Bem-Estar</h3>
+            </div>
+            <div class="servicos-lista-grid">
+              <div class="servico-card-catalogo estetica">
+                <span class="servico-card-icon">🧖‍♂️</span>
+                <div class="servico-card-info">
+                  <h4>Massagem Relaxante</h4>
+                  <p class="servico-card-desc">Relaxamento muscular profundo</p>
+                </div>
+                <span class="servico-card-preco">R$ 60,00</span>
+              </div>
+              <div class="servico-card-catalogo estetica">
+                <span class="servico-card-icon">🧴</span>
+                <div class="servico-card-info">
+                  <h4>Limpeza de Pele</h4>
+                  <p class="servico-card-desc">Limpeza profunda e revitalização</p>
+                </div>
+                <span class="servico-card-preco">R$ 55,00</span>
+              </div>
+              <div class="servico-card-catalogo estetica">
+                <span class="servico-card-icon">🍃</span>
+                <div class="servico-card-info">
+                  <h4>Drenagem Linfática</h4>
+                  <p class="servico-card-desc">Redução de inchaço e desintoxicação</p>
+                </div>
+                <span class="servico-card-preco">R$ 60,00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div class="servicos-cta animate-fade-up">
+            <a href="#agendamento" class="btn btn-primary">Agendar Agora</a>
+          </div>
+
+        </div>
+      </section>
+    </div> <!-- Fim view-servicos -->
+
+    <!-- MEUS AGENDAMENTOS VIEW -->
+    <div id="meus-agendamentos" class="view" style="display: none;">
+      <section style="padding-top: 140px; min-height: 80vh;">
+        <div class="container">
+          <div class="section-header animate-fade-up">
+            <span class="section-tag">Acompanhe seus horários</span>
+            <h2>Meus Agendamentos</h2>
+            <p>Informe o seu telefone para visualizar os agendamentos registrados.</p>
+            <div class="section-divider"></div>
+          </div>
+    
+          <div class="booking-container animate-fade-up">
+            <form id="searchForm" novalidate>
+              <div class="form-group">
+                <label for="telefoneBusca">Telefone / WhatsApp <span class="required">*</span></label>
+                <input type="tel" id="telefoneBusca" class="form-input" placeholder="(00) 00000-0000" maxlength="15" pattern="\(\d{2}\)\s\d{4,5}-\d{4}" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+              </div>
+    
+              <button type="submit" class="btn btn-primary btn-submit" id="btnSearch">
+                <span class="btn-text">Buscar Agendamentos</span>
+                <div class="spinner"></div>
+              </button>
+            </form>
+            <div id="resultsContainer"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ADMIN VIEW -->
+    <div id="admin" class="view" style="display: none;">
+      <!-- ==================== LOGIN ==================== -->
+      <div class="admin-login-container" id="adminLogin" style="min-height: 80vh; display: flex; align-items: center; justify-content: center; padding: 20px;">
+        <div class="booking-container" style="max-width: 400px; width: 100%; text-align: center;">
+          <h2 style="margin-bottom: 8px;">Acesso <span class="gold">Admin</span></h2>
+          <p style="color: var(--text-secondary); margin-bottom: 24px;">Insira suas credenciais para continuar.</p>
+          
+          <form id="adminLoginForm" novalidate>
+            <div class="form-group" style="text-align: left;">
+              <label for="adminUser">Usuário</label>
+              <input type="text" id="adminUser" class="form-input" required>
+            </div>
+            <div class="form-group" style="text-align: left;">
+              <label for="adminPass">Senha</label>
+              <input type="password" id="adminPass" class="form-input" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Acessar Painel</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- ==================== DASHBOARD ==================== -->
+      <div id="adminDashboard" style="display: none;">
+        <div class="admin-header">
+          <div class="container">
+            <h1>Painel <span style="color: var(--gold-primary);">Administrativo</span></h1>
+            <p>Gerencie e visualize todos os agendamentos da barbearia.</p>
+          </div>
+        </div>
+        <div class="admin-content">
+          <div class="container">
+            <!-- Stats -->
+            <div class="admin-stats">
+              <div class="stat-card agendado" id="cardAgendadosTotal" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'" title="Clique para ver todos os agendamentos solicitados">
+                <div class="stat-number" id="statAgendados">0</div>
+                <div class="stat-label">Agendados (Total)</div>
+              </div>
+              <div class="stat-card realizado">
+                <div class="stat-number" id="statRealizados">0</div>
+                <div class="stat-label">Realizados (Total)</div>
+              </div>
+              <div class="stat-card cancelado">
+                <div class="stat-number" id="statCancelados">0</div>
+                <div class="stat-label">Cancelados (Total)</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number" id="statHoje">0</div>
+                <div class="stat-label">Agendamentos Hoje</div>
+              </div>
+              <div class="stat-card realizado">
+                <div class="stat-number" id="statRealizadosMes">0</div>
+                <div class="stat-label">Realizados (Mês)</div>
+              </div>
+              <div class="stat-card agendado">
+                <div class="stat-number" id="statAgendadosMes">0</div>
+                <div class="stat-label">Agendamentos (Mês)</div>
+              </div>
+              <div class="stat-card cancelado">
+                <div class="stat-number" id="statCanceladosMes">0</div>
+                <div class="stat-label">Cancelados (Mês)</div>
+              </div>
+              <div class="stat-card faturamento">
+                <div class="stat-number" id="statFaturamento">R$ 0</div>
+                <div class="stat-label">Faturamento Total</div>
+              </div>
+            </div>
+            <!-- View Toggle -->
+            <div class="admin-view-toggle" style="margin-bottom: 20px; display: flex; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px;">
+              <button class="btn-toggle active" id="btnViewTable">
+                <span class="icon">📋</span> Tabela de Agendamentos
+              </button>
+              <button class="btn-toggle" id="btnViewCRM">
+                <span class="icon">📊</span> Quadro CRM (Fluxo)
+              </button>
+              <button class="btn-toggle" id="btnViewCancelled">
+                <span class="icon">🚫</span> Cancelados
+              </button>
+            </div>
+
+            <!-- Toolbar -->
+            <div class="admin-toolbar">
+              <input type="date" id="filtroData" class="form-input" title="Filtrar por data">
+              <button class="btn btn-outline btn-sm" id="btnLimparFiltro">Limpar Filtro</button>
+              <button class="btn btn-primary btn-sm" id="btnRefresh">↻ Atualizar</button>
+              <button class="btn btn-danger btn-sm" id="btnCancelarDia">🚫 Cancelar Dia</button>
+              <button class="btn btn-lock btn-sm" id="btnBloquearDia">🔒 Bloquear Dia</button>
+              <button class="btn btn-warning btn-sm" id="btnBloquearHorario" style="background-color: #f39c12; border-color: #e67e22; color: white;">🚫 Bloquear Horário</button>
+              <button class="btn btn-success btn-sm" id="btnNovaReserva">➕ Nova Reserva</button>
+              <button class="btn btn-outline btn-sm" id="btnTestNotify" style="border-color: #d4af37; color: #d4af37;">🔔 Testar Notificação</button>
+              <button class="btn btn-confirmar-vencidos btn-sm" id="btnConfirmarVencidos">✅ Confirmar Vencidos</button>
+              <button class="btn btn-danger btn-sm" id="btnLimparDados" style="margin-left: auto;">🧹 Limpar Todos os Dados</button>
+            </div>
+            <div class="dia-bloqueado-badge" id="diaBloqueadoBadge" style="display:none;">
+              <span class="badge-locked-icon">🔒</span>
+              <span id="diaBloqueadoTexto">Este dia está bloqueado para agendamentos</span>
+            </div>
+
+            <!-- Grid de Horários para Bloqueio Rápido (Admin) -->
+            <div id="adminHorariosContainer" style="display: none; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 1px dashed rgba(255,255,255,0.1);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h4 style="margin: 0; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-primary);">Gerenciar Horários Disponíveis</h4>
+                <button class="btn-close-mini" id="btnCloseAdminHorarios" style="background: none; border: none; color: #fff; cursor: pointer; font-size: 18px;">&times;</button>
+              </div>
+              <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 15px;">Clique em um horário para bloqueá-lo ou desbloqueá-lo manualmente.</p>
+              <div class="time-slots-grid" id="adminTimeSlotsGrid">
+                <!-- Gerado via JS -->
+              </div>
+            </div>
+
+            <div class="table-view" id="tableView">
+              <div class="table-wrapper">
+                <table class="admin-table" id="agendamentosTable">
+                <thead>
+                  <tr>
+                    <th>Serviço</th>
+                    <th>Cliente</th>
+                    <th>Telefone</th>
+                    <th>Data</th>
+                    <th>Horário</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="agendamentosBody"></tbody>
+              </table>
+              </div> <!-- Fim table-wrapper -->
+              <div class="empty-state" id="emptyState" style="display: none;">
+                <div class="icon">📋</div>
+                <p>Nenhum agendamento encontrado.</p>
+              </div>
+            </div> <!-- Fim tableView -->
+
+            <!-- CRM View (Kanban) -->
+            <div class="crm-view" id="crmView" style="display: none;">
+              <div class="crm-board">
+                <!-- Coluna: Agendados -->
+                <div class="crm-column" data-status="agendado">
+                  <div class="crm-column-header">
+                    <span class="dot dot-agendado"></span>
+                    Agendados
+                  </div>
+                  <div class="crm-column-content" id="crm-agendado"></div>
+                </div>
+
+                <!-- Coluna: Confirmados -->
+                <div class="crm-column" data-status="confirmado">
+                  <div class="crm-column-header">
+                    <span class="dot dot-confirmado"></span>
+                    Confirmados
+                  </div>
+                  <div class="crm-column-content" id="crm-confirmado"></div>
+                </div>
+
+                <!-- Coluna: Em Atendimento -->
+                <div class="crm-column" data-status="em_atendimento">
+                  <div class="crm-column-header">
+                    <span class="dot dot-atendimento"></span>
+                    Em Atendimento
+                  </div>
+                  <div class="crm-column-content" id="crm-em_atendimento"></div>
+                </div>
+
+                <!-- Coluna: Finalizados -->
+                <div class="crm-column" data-status="realizado">
+                  <div class="crm-column-header">
+                    <span class="dot dot-realizado"></span>
+                    Finalizados
+                  </div>
+                  <div class="crm-column-content" id="crm-realizado"></div>
+                </div>
+              </div>
+            </div> <!-- Fim crmView -->
+
+            <!-- Cancelled View -->
+            <div class="cancelled-view" id="cancelledView" style="display: none;">
+              <div class="section-header-mini" style="margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                <span class="dot dot-cancelado" style="width: 12px; height: 12px;"></span>
+                <h3 style="text-transform: uppercase; letter-spacing: 1px;">Cancelados</h3>
+              </div>
+              <div class="cancelled-grid" id="cancelledGrid">
+                <!-- Cards gerados via JS -->
+              </div>
+              <div class="empty-state" id="cancelledEmptyState" style="display: none;">
+                <div class="icon">🚫</div>
+                <p>Nenhum agendamento cancelado.</p>
+              </div>
+            </div> <!-- Fim cancelledView -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main> <!-- Fim app-content -->
+
+  <!-- ==================== MODAL NOVA RESERVA (Admin) ==================== -->
+  <div class="modal-overlay" id="modalOverlay" style="display:none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalTitle">Nova <span class="gold">Reserva</span></h3>
+        <button class="modal-close" id="btnFecharModal">&times;</button>
+      </div>
+      <form id="formNovaReserva" novalidate>
+        <input type="hidden" id="modalBookingId">
+        <div class="form-group">
+          <label>Serviço <span class="required">*</span></label>
+          <div class="service-selection-grid" id="modalServiceSelection">
+            <div class="service-item" data-value="Corte de Cabelo">
+              <span class="service-item-icon">✂️</span>
+              <span class="service-item-name">Corte de Cabelo</span>
+              <span class="service-item-price">R$ 35,00</span>
+            </div>
+            <div class="service-item" data-value="Barba">
+              <span class="service-item-icon">🪒</span>
+              <span class="service-item-name">Barba</span>
+              <span class="service-item-price">R$ 25,00</span>
+            </div>
+            <div class="service-item" data-value="Sobrancelha">
+              <span class="service-item-icon">👁️</span>
+              <span class="service-item-name">Sobrancelha</span>
+              <span class="service-item-price">R$ 10,00</span>
+            </div>
+            <div class="service-item" data-value="Pezinho">
+              <span class="service-item-icon">📏</span>
+              <span class="service-item-name">Pezinho</span>
+              <span class="service-item-price">R$ 10,00</span>
+            </div>
+            <div class="service-item" data-value="Progressiva">
+              <span class="service-item-icon">🔥</span>
+              <span class="service-item-name">Progressiva</span>
+              <span class="service-item-price">apartir de R$ 70,00</span>
+            </div>
+            <div class="service-item" data-value="Combo: Cabelo + Barba">
+              <span class="service-item-icon">✂️🧔‍♂️</span>
+              <span class="service-item-name">Cabelo + Barba</span>
+              <span class="service-item-price">R$ 50,00</span>
+            </div>
+            <div class="service-item" data-value="Combo: Cabelo + Sobrancelha">
+              <span class="service-item-icon">✂️👁️</span>
+              <span class="service-item-name">Cabelo + Sobrancelha</span>
+              <span class="service-item-price">R$ 40,00</span>
+            </div>
+            <div class="service-item" data-value="Combo: Barba + Sobrancelha">
+              <span class="service-item-icon">🧔‍♂️👁️</span>
+              <span class="service-item-name">Barba + Sobrancelha</span>
+              <span class="service-item-price">R$ 32,00</span>
+            </div>
+            <div class="service-item" data-value="Combo: Barba + Pezinho">
+              <span class="service-item-icon">🧔‍♂️📏</span>
+              <span class="service-item-name">Barba + Pezinho</span>
+              <span class="service-item-price">R$ 32,00</span>
+            </div>
+            <div class="service-item" data-value="Combo: Cabelo + Barba + Sobrancelha">
+              <span class="service-item-icon">✂️🧔‍♂️👁️</span>
+              <span class="service-item-name">Cabelo + Barba + Sobrancelha</span>
+              <span class="service-item-price">R$ 50,00</span>
+            </div>
+            <div class="service-item" data-value="Lib. Miofacial c/ Ventosa (Costas)">
+              <span class="service-item-icon">💆</span>
+              <span class="service-item-name">Lib. Miofacial c/ Ventosa (Costas)</span>
+              <span class="service-item-price">R$ 65,00</span>
+            </div>
+            <div class="service-item" data-value="Lib. Miofacial c/ Ventosa (Membro Individual)">
+              <span class="service-item-icon">💆</span>
+              <span class="service-item-name">Lib. Miofacial c/ Ventosa (Membro Indiv.)</span>
+              <span class="service-item-price">R$ 40,00</span>
+            </div>
+            <div class="service-item" data-value="Lib. Miofacial c/ Ventosa (Membro Bilateral)">
+              <span class="service-item-icon">💆</span>
+              <span class="service-item-name">Lib. Miofacial c/ Ventosa (Membro Bilat.)</span>
+              <span class="service-item-price">R$ 70,00</span>
+            </div>
+            <div class="service-item" data-value="Lib. Miofacial c/ Ventosa (Peitoral)">
+              <span class="service-item-icon">💆</span>
+              <span class="service-item-name">Lib. Miofacial c/ Ventosa (Peitoral)</span>
+              <span class="service-item-price">R$ 45,00</span>
+            </div>
+            <div class="service-item" data-value="Lib. Miofacial c/ Ventosa (Corpo Inteiro)">
+              <span class="service-item-icon">💆</span>
+              <span class="service-item-name">Lib. Miofacial c/ Ventosa (Corpo Inteiro)</span>
+              <span class="service-item-price">R$ 150,00</span>
+            </div>
+            <div class="service-item" data-value="Massagem Relaxante">
+              <span class="service-item-icon">🧖‍♂️</span>
+              <span class="service-item-name">Massagem Relaxante</span>
+              <span class="service-item-price">R$ 60,00</span>
+            </div>
+            <div class="service-item" data-value="Limpeza de Pele">
+              <span class="service-item-icon">🧴</span>
+              <span class="service-item-name">Limpeza de Pele</span>
+              <span class="service-item-price">R$ 55,00</span>
+            </div>
+            <div class="service-item" data-value="Drenagem Linfática">
+              <span class="service-item-icon">🍃</span>
+              <span class="service-item-name">Drenagem Linfática</span>
+              <span class="service-item-price">R$ 60,00</span>
+            </div>
+          </div>
+          <input type="hidden" id="modalServico" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="modalNome">Nome <span class="required">*</span></label>
+            <input type="text" id="modalNome" class="form-input" placeholder="Nome do cliente" required>
+          </div>
+          <div class="form-group">
+            <label for="modalTelefone">Telefone <span class="required">*</span></label>
+            <input type="tel" id="modalTelefone" class="form-input" placeholder="(00) 00000-0000" maxlength="15" pattern="\(\d{2}\)\s\d{4,5}-\d{4}" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="modalData">Data <span class="required">*</span></label>
+            <input type="date" id="modalData" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label for="modalHorario">Horário <span class="required">*</span></label>
+            <select id="modalHorario" class="form-select" required>
+              <option value="" disabled selected>Selecione</option>
+              <option value="09:00">09:00</option>
+              <option value="10:00">10:00</option>
+              <option value="11:00">11:00</option>
+              <option value="12:00">12:00</option>
+              <option value="13:00">13:00</option>
+              <option value="14:00">14:00</option>
+              <option value="15:00">15:00</option>
+              <option value="16:00">16:00</option>
+              <option value="17:00">17:00</option>
+              <option value="18:00">18:00</option>
+              <option value="19:00">19:00</option>
+              <option value="20:00">20:00</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline btn-sm" id="btnCancelarModal">Cancelar</button>
+          <button type="submit" class="btn btn-primary btn-sm">Confirmar Reserva</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 <span class="gold">Seu Carlos</span> — Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+
+  <!-- ==================== MODAL IDENTIFICAÇÃO ==================== -->
+  <div class="modal-overlay" id="loginModalOverlay" style="display:none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Identificar-<span class="gold">se</span></h3>
+        <button class="modal-close" id="btnFecharLoginModal">&times;</button>
+      </div>
+      <p style="margin-bottom: 20px; color: var(--text-secondary); font-size: 0.9rem;">
+        Use seu número para agendar e acompanhar seus horários. Em caso de imprevistos, te avisaremos por aqui.
+      </p>
+      <form id="loginForm" novalidate>
+        <div class="form-group">
+          <label for="loginTelefone">Telefone / WhatsApp <span class="required">*</span></label>
+          <input type="tel" id="loginTelefone" class="form-input" placeholder="(00) 00000-0000" maxlength="15" required>
+        </div>
+
+        <!-- Mensagem de feedback interno (ex: número não encontrado) -->
+        <div id="loginMessage" class="modal-message" style="display:none;"></div>
+
+        <div id="loginNameGroup" class="form-group slide-content" style="display:none;">
+          <label for="loginNome">Seu Nome Completo <span class="required">*</span></label>
+          <input type="text" id="loginNome" class="form-input" placeholder="Como devemos te chamar?">
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline btn-sm" id="btnCancelarLoginModal">Cancelar</button>
+          <button type="submit" class="btn btn-primary btn-sm" id="btnConfirmarLogin">Acessar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- App Scripts -->
+  <script src="js/ui-components.js?v=15"></script>
+  <script src="js/supabase.js?v=15"></script>
+  <script src="js/auth.js?v=15"></script>
+  <script src="js/auth-ui.js?v=15"></script>
+  <script src="js/agendamento.js?v=15"></script>
+  <script src="js/meus_agendamentos.js?v=15"></script>
+  <script src="js/push-notifications.js?v=2"></script>
+  <script src="js/admin.js?v=15"></script>
+  <script src="js/router.js?v=15"></script>
+
+  <!-- Navbar scroll + mobile menu -->
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // Close menu on link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        const targetId = anchor.getAttribute('href');
+        if (targetId === '#') return;
+        
+        e.preventDefault();
+        window.location.hash = targetId;
+      });
+    });
+
+    // Intersection observer for animations
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-fade-up').forEach(el => {
+      el.style.animationPlayState = 'paused';
+      observer.observe(el);
+    });
+
+    /* 
+    // PWA Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js?v=13')
+          .then(reg => console.log('Service Worker Registrado'))
+          .catch(err => console.error('Erro no Service Worker', err));
+      });
+    }
+    */
+    // Registrar Service Worker (necessário para Push Notifications)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js?v=13')
+          .then(reg => {
+            console.log('[SW] Registrado com sucesso. Scope:', reg.scope);
+          })
+          .catch(err => console.error('[SW] Erro no registro:', err));
+      });
+    }
+
+    // PWA Install Logic
+    let deferredPrompt;
+    const installBtn = document.getElementById('installBtn');
+    const installLink = document.getElementById('installLink');
+
+    function showInstallToast(message, type = 'warning') {
+      if (window.UI) {
+        window.UI.toast(message, type);
+      }
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      // Em navegadores compatíveis, opcionalmente destaca o botão
+      if (installBtn) installBtn.classList.add('ready');
+    });
+
+    const handleInstallClick = async (e) => {
+      if (e) e.preventDefault();
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User response to the install prompt: ${outcome}`);
+        deferredPrompt = null;
+        if (installBtn) installBtn.style.display = 'none';
+        if (installLink) installLink.style.display = 'none';
+      } else {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        if (isIOS) {
+          showInstallToast('No iPhone: clique em "Compartilhar" e depois "Adicionar à Tela de Início".');
+        } else {
+          showInstallToast('Para baixar: use o menu do seu navegador e clique em "Instalar Aplicativo" ou "Adicionar à Tela de Início".');
+        }
+      }
+    };
+
+    if (installBtn) installBtn.addEventListener('click', handleInstallClick);
+    if (installLink) installLink.addEventListener('click', handleInstallClick);
+
+    window.addEventListener('appinstalled', (evt) => {
+      console.log('PWA instalado com sucesso!');
+      if (installBtn) installBtn.style.display = 'none';
+      if (installLink) installLink.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
