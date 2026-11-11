@@ -18,9 +18,7 @@
   <!-- ==================== NAVBAR ==================== -->
   <nav class="navbar" id="navbar">
     <div class="container">
-      <a href="#" class="navbar-brand">
-        AgendBarber
-      </a>
+      <a href="#" class="navbar-brand" data-config="marca">AgendBarber</a>
       <div class="navbar-links" id="navLinks">
         <a href="#inicio">Início</a>
         <a href="#servicos">Nossos Serviços</a>
@@ -63,7 +61,7 @@
       <div class="hero-decor"></div>
     </div>
     <div class="hero-content">
-      <img src="img/logo_seu_carlos_hero.jpg" alt="Logo Seu Carlos Barber & Massoterapia" class="main-logo animate-fade-up">
+      <img id="heroLogo" src="img/logo_seu_carlos_hero.jpg" alt="Logo" class="main-logo animate-fade-up">
       <div class="hero-badge">
         ✦ Experiência Premium
       </div>
@@ -95,97 +93,8 @@
           <div class="form-group">
             <label>Escolha o Serviço <span class="required">*</span></label>
             <div class="service-selection-grid" id="serviceSelection">
-              <div class="service-item" data-value="Corte de Cabelo">
-                <span class="service-item-icon">✂️</span>
-                <span class="service-item-name">Corte de Cabelo</span>
-                <span class="service-item-price">R$ 35,00</span>
-              </div>
-              <div class="service-item" data-value="Barba">
-                <span class="service-item-icon">🪒</span>
-                <span class="service-item-name">Barba</span>
-                <span class="service-item-price">R$ 25,00</span>
-              </div>
-              <div class="service-item" data-value="Sobrancelha">
-                <span class="service-item-icon">👁️</span>
-                <span class="service-item-name">Sobrancelha</span>
-                <span class="service-item-price">R$ 10,00</span>
-              </div>
-              <div class="service-item" data-value="Pezinho">
-                <span class="service-item-icon">📏</span>
-                <span class="service-item-name">Pezinho</span>
-                <span class="service-item-price">R$ 10,00</span>
-              </div>
-              <div class="service-item" data-value="Progressiva">
-                <span class="service-item-icon">🔥</span>
-                <span class="service-item-name">Progressiva</span>
-                <span class="service-item-price">apartir de R$ 70,00</span>
-              </div>
-              <div class="service-item" data-value="Combo: Cabelo + Barba">
-                <span class="service-item-icon">✂️🧔‍♂️</span>
-                <span class="service-item-name">Cabelo + Barba</span>
-                <span class="service-item-price">R$ 50,00</span>
-              </div>
-              <div class="service-item" data-value="Combo: Cabelo + Sobrancelha">
-                <span class="service-item-icon">✂️👁️</span>
-                <span class="service-item-name">Cabelo + Sobrancelha</span>
-                <span class="service-item-price">R$ 40,00</span>
-              </div>
-              <div class="service-item" data-value="Combo: Barba + Sobrancelha">
-                <span class="service-item-icon">🧔‍♂️👁️</span>
-                <span class="service-item-name">Barba + Sobrancelha</span>
-                <span class="service-item-price">R$ 32,00</span>
-              </div>
-              <div class="service-item" data-value="Combo: Barba + Pezinho">
-                <span class="service-item-icon">🧔‍♂️📏</span>
-                <span class="service-item-name">Barba + Pezinho</span>
-                <span class="service-item-price">R$ 32,00</span>
-              </div>
-              <div class="service-item" data-value="Combo: Cabelo + Barba + Sobrancelha">
-                <span class="service-item-icon">✂️🧔‍♂️👁️</span>
-                <span class="service-item-name">Cabelo + Barba + Sobrancelha</span>
-                <span class="service-item-price">R$ 50,00</span>
-              </div>
-              <div class="service-item" data-value="Lib. Miofacial c/ Ventosa (Costas)">
-                <span class="service-item-icon">💆</span>
-                <span class="service-item-name">Lib. Miofacial c/ Ventosa (Costas)</span>
-                <span class="service-item-price">R$ 65,00</span>
-              </div>
-              <div class="service-item" data-value="Lib. Miofacial c/ Ventosa (Membro Individual)">
-                <span class="service-item-icon">💆</span>
-                <span class="service-item-name">Lib. Miofacial c/ Ventosa (Membro Indiv.)</span>
-                <span class="service-item-price">R$ 40,00</span>
-              </div>
-              <div class="service-item" data-value="Lib. Miofacial c/ Ventosa (Membro Bilateral)">
-                <span class="service-item-icon">💆</span>
-                <span class="service-item-name">Lib. Miofacial c/ Ventosa (Membro Bilat.)</span>
-                <span class="service-item-price">R$ 70,00</span>
-              </div>
-              <div class="service-item" data-value="Lib. Miofacial c/ Ventosa (Peitoral)">
-                <span class="service-item-icon">💆</span>
-                <span class="service-item-name">Lib. Miofacial c/ Ventosa (Peitoral)</span>
-                <span class="service-item-price">R$ 45,00</span>
-              </div>
-              <div class="service-item" data-value="Lib. Miofacial c/ Ventosa (Corpo Inteiro)">
-                <span class="service-item-icon">💆</span>
-                <span class="service-item-name">Lib. Miofacial c/ Ventosa (Corpo Inteiro)</span>
-                <span class="service-item-price">R$ 150,00</span>
-              </div>
-              <div class="service-item" data-value="Massagem Relaxante">
-                <span class="service-item-icon">🧖‍♂️</span>
-                <span class="service-item-name">Massagem Relaxante</span>
-                <span class="service-item-price">R$ 60,00</span>
-              </div>
-              <div class="service-item" data-value="Limpeza de Pele">
-                <span class="service-item-icon">🧴</span>
-                <span class="service-item-name">Limpeza de Pele</span>
-                <span class="service-item-price">R$ 55,00</span>
-              </div>
-              <div class="service-item" data-value="Drenagem Linfática">
-                <span class="service-item-icon">🍃</span>
-                <span class="service-item-name">Drenagem Linfática</span>
-                <span class="service-item-price">R$ 60,00</span>
-              </div>
-            </div>
+            <!-- Gerado a partir de js/config.js -->
+          </div>
             <input type="hidden" id="servico" required>
           </div>
 
@@ -234,193 +143,11 @@
           <div class="section-header animate-fade-up">
             <span class="section-tag">Conheça nosso cardápio</span>
             <h2>Todos os Nossos <span class="gold">Serviços</span></h2>
-            <p>Barbearia, massoterapia e estética em um só lugar. Confira tudo o que oferecemos.</p>
+            <p data-config="textoCatalogo">Barbearia, massoterapia e estética em um só lugar. Confira tudo o que oferecemos.</p>
             <div class="section-divider"></div>
           </div>
 
-          <!-- CATEGORIA: BARBEARIA -->
-          <div class="servicos-categoria animate-fade-up">
-            <div class="categoria-header">
-              <span class="categoria-icon">✂️</span>
-              <h3>Barbearia</h3>
-            </div>
-            <div class="servicos-lista-grid">
-              <div class="servico-card-catalogo">
-                <span class="servico-card-icon">✂️</span>
-                <div class="servico-card-info">
-                  <h4>Corte de Cabelo</h4>
-                  <p class="servico-card-desc">Corte moderno e personalizado</p>
-                </div>
-                <span class="servico-card-preco">R$ 35,00</span>
-              </div>
-              <div class="servico-card-catalogo">
-                <span class="servico-card-icon">🪒</span>
-                <div class="servico-card-info">
-                  <h4>Barba</h4>
-                  <p class="servico-card-desc">Barba alinhada com navalha</p>
-                </div>
-                <span class="servico-card-preco">R$ 25,00</span>
-              </div>
-              <div class="servico-card-catalogo">
-                <span class="servico-card-icon">👁️</span>
-                <div class="servico-card-info">
-                  <h4>Sobrancelha</h4>
-                  <p class="servico-card-desc">Design e acabamento</p>
-                </div>
-                <span class="servico-card-preco">R$ 10,00</span>
-              </div>
-              <div class="servico-card-catalogo">
-                <span class="servico-card-icon">📏</span>
-                <div class="servico-card-info">
-                  <h4>Pezinho</h4>
-                  <p class="servico-card-desc">Acabamento na nuca</p>
-                </div>
-                <span class="servico-card-preco">R$ 10,00</span>
-              </div>
-              <div class="servico-card-catalogo">
-                <span class="servico-card-icon">🔥</span>
-                <div class="servico-card-info">
-                  <h4>Progressiva</h4>
-                  <p class="servico-card-desc">Alisamento e tratamento capilar</p>
-                </div>
-                <span class="servico-card-preco">apartir de R$ 70,00</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- CATEGORIA: COMBOS -->
-          <div class="servicos-categoria animate-fade-up">
-            <div class="categoria-header">
-              <span class="categoria-icon">🎁</span>
-              <h3>Combos Promocionais</h3>
-            </div>
-            <div class="servicos-lista-grid">
-              <div class="servico-card-catalogo combo">
-                <span class="servico-card-icon">✂️🧔‍♂️</span>
-                <div class="servico-card-info">
-                  <h4>Cabelo + Barba</h4>
-                  <p class="servico-card-desc">Combo completo</p>
-                </div>
-                <span class="servico-card-preco">R$ 50,00</span>
-              </div>
-              <div class="servico-card-catalogo combo">
-                <span class="servico-card-icon">✂️👁️</span>
-                <div class="servico-card-info">
-                  <h4>Cabelo + Sobrancelha</h4>
-                  <p class="servico-card-desc">Corte + design</p>
-                </div>
-                <span class="servico-card-preco">R$ 40,00</span>
-              </div>
-              <div class="servico-card-catalogo combo">
-                <span class="servico-card-icon">🧔‍♂️👁️</span>
-                <div class="servico-card-info">
-                  <h4>Barba + Sobrancelha</h4>
-                  <p class="servico-card-desc">Barba + design</p>
-                </div>
-                <span class="servico-card-preco">R$ 32,00</span>
-              </div>
-              <div class="servico-card-catalogo combo">
-                <span class="servico-card-icon">🧔‍♂️📏</span>
-                <div class="servico-card-info">
-                  <h4>Barba + Pezinho</h4>
-                  <p class="servico-card-desc">Barba + acabamento</p>
-                </div>
-                <span class="servico-card-preco">R$ 32,00</span>
-              </div>
-              <div class="servico-card-catalogo combo">
-                <span class="servico-card-icon">✂️🧔‍♂️👁️</span>
-                <div class="servico-card-info">
-                  <h4>Cabelo + Barba + Sobrancelha</h4>
-                  <p class="servico-card-desc">Combo premium completo</p>
-                </div>
-                <span class="servico-card-preco">R$ 50,00</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- CATEGORIA: MASSOTERAPIA -->
-          <div class="servicos-categoria animate-fade-up">
-            <div class="categoria-header">
-              <span class="categoria-icon">💆</span>
-              <h3>Liberação Miofascial com Ventosa</h3>
-            </div>
-            <div class="servicos-lista-grid">
-              <div class="servico-card-catalogo massoterapia">
-                <span class="servico-card-icon">💆</span>
-                <div class="servico-card-info">
-                  <h4>Costas</h4>
-                  <p class="servico-card-desc">Ventosaterapia nas costas</p>
-                </div>
-                <span class="servico-card-preco">R$ 65,00</span>
-              </div>
-              <div class="servico-card-catalogo massoterapia">
-                <span class="servico-card-icon">💆</span>
-                <div class="servico-card-info">
-                  <h4>Ombro / Braço / Coxa / Perna</h4>
-                  <p class="servico-card-desc">Membro individual</p>
-                </div>
-                <span class="servico-card-preco">R$ 40,00</span>
-              </div>
-              <div class="servico-card-catalogo massoterapia">
-                <span class="servico-card-icon">💆</span>
-                <div class="servico-card-info">
-                  <h4>Ombro / Braço / Coxa / Perna</h4>
-                  <p class="servico-card-desc">Bilateral (ambos os lados)</p>
-                </div>
-                <span class="servico-card-preco">R$ 70,00</span>
-              </div>
-              <div class="servico-card-catalogo massoterapia">
-                <span class="servico-card-icon">💆</span>
-                <div class="servico-card-info">
-                  <h4>Peitoral</h4>
-                  <p class="servico-card-desc">Ventosaterapia no peitoral</p>
-                </div>
-                <span class="servico-card-preco">R$ 45,00</span>
-              </div>
-              <div class="servico-card-catalogo massoterapia destaque">
-                <span class="servico-card-icon">💆</span>
-                <div class="servico-card-info">
-                  <h4>Corpo Inteiro</h4>
-                  <p class="servico-card-desc">Sessão completa em todo o corpo</p>
-                </div>
-                <span class="servico-card-preco">R$ 150,00</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- CATEGORIA: ESTÉTICA & BEM-ESTAR -->
-          <div class="servicos-categoria animate-fade-up">
-            <div class="categoria-header">
-              <span class="categoria-icon">🧖‍♂️</span>
-              <h3>Estética & Bem-Estar</h3>
-            </div>
-            <div class="servicos-lista-grid">
-              <div class="servico-card-catalogo estetica">
-                <span class="servico-card-icon">🧖‍♂️</span>
-                <div class="servico-card-info">
-                  <h4>Massagem Relaxante</h4>
-                  <p class="servico-card-desc">Relaxamento muscular profundo</p>
-                </div>
-                <span class="servico-card-preco">R$ 60,00</span>
-              </div>
-              <div class="servico-card-catalogo estetica">
-                <span class="servico-card-icon">🧴</span>
-                <div class="servico-card-info">
-                  <h4>Limpeza de Pele</h4>
-                  <p class="servico-card-desc">Limpeza profunda e revitalização</p>
-                </div>
-                <span class="servico-card-preco">R$ 55,00</span>
-              </div>
-              <div class="servico-card-catalogo estetica">
-                <span class="servico-card-icon">🍃</span>
-                <div class="servico-card-info">
-                  <h4>Drenagem Linfática</h4>
-                  <p class="servico-card-desc">Redução de inchaço e desintoxicação</p>
-                </div>
-                <span class="servico-card-preco">R$ 60,00</span>
-              </div>
-            </div>
-          </div>
+          <div id="catalogoServicos"><!-- Gerado a partir de js/config.js --></div>
 
           <!-- CTA -->
           <div class="servicos-cta animate-fade-up">
@@ -668,96 +395,7 @@
         <div class="form-group">
           <label>Serviço <span class="required">*</span></label>
           <div class="service-selection-grid" id="modalServiceSelection">
-            <div class="service-item" data-value="Corte de Cabelo">
-              <span class="service-item-icon">✂️</span>
-              <span class="service-item-name">Corte de Cabelo</span>
-              <span class="service-item-price">R$ 35,00</span>
-            </div>
-            <div class="service-item" data-value="Barba">
-              <span class="service-item-icon">🪒</span>
-              <span class="service-item-name">Barba</span>
-              <span class="service-item-price">R$ 25,00</span>
-            </div>
-            <div class="service-item" data-value="Sobrancelha">
-              <span class="service-item-icon">👁️</span>
-              <span class="service-item-name">Sobrancelha</span>
-              <span class="service-item-price">R$ 10,00</span>
-            </div>
-            <div class="service-item" data-value="Pezinho">
-              <span class="service-item-icon">📏</span>
-              <span class="service-item-name">Pezinho</span>
-              <span class="service-item-price">R$ 10,00</span>
-            </div>
-            <div class="service-item" data-value="Progressiva">
-              <span class="service-item-icon">🔥</span>
-              <span class="service-item-name">Progressiva</span>
-              <span class="service-item-price">apartir de R$ 70,00</span>
-            </div>
-            <div class="service-item" data-value="Combo: Cabelo + Barba">
-              <span class="service-item-icon">✂️🧔‍♂️</span>
-              <span class="service-item-name">Cabelo + Barba</span>
-              <span class="service-item-price">R$ 50,00</span>
-            </div>
-            <div class="service-item" data-value="Combo: Cabelo + Sobrancelha">
-              <span class="service-item-icon">✂️👁️</span>
-              <span class="service-item-name">Cabelo + Sobrancelha</span>
-              <span class="service-item-price">R$ 40,00</span>
-            </div>
-            <div class="service-item" data-value="Combo: Barba + Sobrancelha">
-              <span class="service-item-icon">🧔‍♂️👁️</span>
-              <span class="service-item-name">Barba + Sobrancelha</span>
-              <span class="service-item-price">R$ 32,00</span>
-            </div>
-            <div class="service-item" data-value="Combo: Barba + Pezinho">
-              <span class="service-item-icon">🧔‍♂️📏</span>
-              <span class="service-item-name">Barba + Pezinho</span>
-              <span class="service-item-price">R$ 32,00</span>
-            </div>
-            <div class="service-item" data-value="Combo: Cabelo + Barba + Sobrancelha">
-              <span class="service-item-icon">✂️🧔‍♂️👁️</span>
-              <span class="service-item-name">Cabelo + Barba + Sobrancelha</span>
-              <span class="service-item-price">R$ 50,00</span>
-            </div>
-            <div class="service-item" data-value="Lib. Miofacial c/ Ventosa (Costas)">
-              <span class="service-item-icon">💆</span>
-              <span class="service-item-name">Lib. Miofacial c/ Ventosa (Costas)</span>
-              <span class="service-item-price">R$ 65,00</span>
-            </div>
-            <div class="service-item" data-value="Lib. Miofacial c/ Ventosa (Membro Individual)">
-              <span class="service-item-icon">💆</span>
-              <span class="service-item-name">Lib. Miofacial c/ Ventosa (Membro Indiv.)</span>
-              <span class="service-item-price">R$ 40,00</span>
-            </div>
-            <div class="service-item" data-value="Lib. Miofacial c/ Ventosa (Membro Bilateral)">
-              <span class="service-item-icon">💆</span>
-              <span class="service-item-name">Lib. Miofacial c/ Ventosa (Membro Bilat.)</span>
-              <span class="service-item-price">R$ 70,00</span>
-            </div>
-            <div class="service-item" data-value="Lib. Miofacial c/ Ventosa (Peitoral)">
-              <span class="service-item-icon">💆</span>
-              <span class="service-item-name">Lib. Miofacial c/ Ventosa (Peitoral)</span>
-              <span class="service-item-price">R$ 45,00</span>
-            </div>
-            <div class="service-item" data-value="Lib. Miofacial c/ Ventosa (Corpo Inteiro)">
-              <span class="service-item-icon">💆</span>
-              <span class="service-item-name">Lib. Miofacial c/ Ventosa (Corpo Inteiro)</span>
-              <span class="service-item-price">R$ 150,00</span>
-            </div>
-            <div class="service-item" data-value="Massagem Relaxante">
-              <span class="service-item-icon">🧖‍♂️</span>
-              <span class="service-item-name">Massagem Relaxante</span>
-              <span class="service-item-price">R$ 60,00</span>
-            </div>
-            <div class="service-item" data-value="Limpeza de Pele">
-              <span class="service-item-icon">🧴</span>
-              <span class="service-item-name">Limpeza de Pele</span>
-              <span class="service-item-price">R$ 55,00</span>
-            </div>
-            <div class="service-item" data-value="Drenagem Linfática">
-              <span class="service-item-icon">🍃</span>
-              <span class="service-item-name">Drenagem Linfática</span>
-              <span class="service-item-price">R$ 60,00</span>
-            </div>
+            <!-- Gerado a partir de js/config.js -->
           </div>
           <input type="hidden" id="modalServico" required>
         </div>
@@ -806,7 +444,7 @@
   <!-- ==================== FOOTER ==================== -->
   <footer class="footer">
     <div class="container">
-      <p>© 2026 <span class="gold">Seu Carlos</span> — Todos os direitos reservados.</p>
+      <p>© 2026 <span class="gold" data-config="nomeCurto">Seu Carlos</span> — Todos os direitos reservados.</p>
     </div>
   </footer>
 
@@ -848,6 +486,8 @@
   <!-- Supabase CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <!-- App Scripts -->
+  <script src="js/config.js?v=16"></script>
+  <script src="js/config-render.js?v=16"></script>
   <script src="js/ui-components.js?v=15"></script>
   <script src="js/supabase.js?v=15"></script>
   <script src="js/auth.js?v=15"></script>

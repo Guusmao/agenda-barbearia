@@ -122,7 +122,7 @@
     if (!userProfile) return;
 
     if (isAdmin || user) {
-      const name = isAdmin ? 'Seu Carlos' : user.nome;
+      const name = isAdmin ? window.APP_CONFIG.nomeCurto : user.nome;
       const initials = name
         ? name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()
         : '?';

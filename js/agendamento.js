@@ -6,12 +6,8 @@
   'use strict';
 
   // --- Config ---
-  const HORARIOS = [
-    '09:00', '10:00', '11:00', '12:00',
-    '13:00', '14:00', '15:00', '16:00',
-    '17:00', '18:00', '19:00', '20:00'
-  ];
-  const ANTECEDENCIA_MINIMA_HORAS = 1;
+  const HORARIOS = window.APP_CONFIG.horarios;
+  const ANTECEDENCIA_MINIMA_HORAS = window.APP_CONFIG.antecedenciaMinimaHoras;
 
   // --- DOM Elements ---
   const form = document.getElementById('bookingForm');
@@ -387,8 +383,8 @@
     const end = `${datePart}T${endHour}${timePart.slice(2)}00`;
     
     const text = encodeURIComponent(`Agendamento: ${ag.servico}`);
-    const details = encodeURIComponent(`Olá! Seu agendamento de ${ag.servico} está confirmado.\nData: ${ag.data}\nHorário: ${ag.horario}\nLocal: Barbearia Seu Carlos`);
-    const location = encodeURIComponent('Barbearia Seu Carlos');
+    const details = encodeURIComponent(`Olá! Seu agendamento de ${ag.servico} está confirmado.\nData: ${ag.data}\nHorário: ${ag.horario}\nLocal: ${window.APP_CONFIG.nome}`);
+    const location = encodeURIComponent(window.APP_CONFIG.nome);
     
     return `https://www.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${start}/${end}&details=${details}&location=${location}`;
   }

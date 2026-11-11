@@ -22,26 +22,7 @@
   let currentStatusFilter = null;
 
   // --- Preços dos Serviços ---
-  const PRECOS_SERVICOS = {
-    'Corte de Cabelo': 35.00,
-    'Barba': 25.00,
-    'Sobrancelha': 10.00,
-    'Pezinho': 10.00,
-    'Progressiva': 70.00,
-    'Combo: Cabelo + Barba': 50.00,
-    'Combo: Cabelo + Sobrancelha': 40.00,
-    'Combo: Barba + Sobrancelha': 32.00,
-    'Combo: Barba + Pezinho': 32.00,
-    'Combo: Cabelo + Barba + Sobrancelha': 50.00,
-    'Lib. Miofacial c/ Ventosa (Costas)': 65.00,
-    'Lib. Miofacial c/ Ventosa (Membro Individual)': 40.00,
-    'Lib. Miofacial c/ Ventosa (Membro Bilateral)': 70.00,
-    'Lib. Miofacial c/ Ventosa (Peitoral)': 45.00,
-    'Lib. Miofacial c/ Ventosa (Corpo Inteiro)': 150.00,
-    'Massagem Relaxante': 60.00,
-    'Limpeza de Pele': 55.00,
-    'Drenagem Linfática': 60.00
-  };
+  const PRECOS_SERVICOS = window.APP_CONFIG.precos;
 
   /**
    * Captura referências do DOM para uso em todo o script
@@ -130,11 +111,7 @@
   const modalHorario = document.getElementById('modalHorario');
   const modalTelefone = document.getElementById('modalTelefone');
 
-  const HORARIOS_DISPONIVEIS = [
-    '09:00','10:00','11:00','12:00',
-    '13:00','14:00','15:00','16:00',
-    '17:00','18:00','19:00','20:00'
-  ];
+  const HORARIOS_DISPONIVEIS = window.APP_CONFIG.horarios;
 
   function showDashboard() {
     const adminLogin = document.getElementById('adminLogin');
@@ -1453,7 +1430,7 @@
     
     const text = encodeURIComponent(`Agendamento: ${ag.servico} - ${ag.nome}`);
     const details = encodeURIComponent(`Cliente: ${ag.nome}\nTelefone: ${ag.telefone}\nServiço: ${ag.servico}`);
-    const location = encodeURIComponent('Barbearia Seu Carlos');
+    const location = encodeURIComponent(window.APP_CONFIG.nome);
     
     return `https://www.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${start}/${end}&details=${details}&location=${location}`;
   }
