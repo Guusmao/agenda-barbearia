@@ -19,6 +19,14 @@ window.APP_CONFIG = {
   descricaoPagina: 'Agende seu horário online. Cortes modernos, barba e muito mais com os melhores profissionais.',
   textoCatalogo: 'Corte, barba e acabamento. Confira tudo o que oferecemos.',
 
+  // --- Barbeiros ---
+  // Com 2 ou mais, o cliente escolhe com quem cortar e cada um tem a própria agenda.
+  // Com 1 ou nenhum, a escolha some e a agenda é única.
+  barbeiros: [
+    { nome: 'Barbeiro 1', desc: 'Degradê e navalhado' },
+    { nome: 'Barbeiro 2', desc: 'Barba e corte clássico' }
+  ],
+
   // --- Agenda ---
   horarios: [
     '09:00', '10:00', '11:00', '12:00',
@@ -26,6 +34,10 @@ window.APP_CONFIG = {
     '17:00', '18:00', '19:00', '20:00'
   ],
   antecedenciaMinimaHoras: 1,
+
+  // --- Lembrete no WhatsApp (botão 🔔 no painel) ---
+  // {nome}, {servico}, {data}, {horario} e {barbearia} são trocados pelos dados do agendamento
+  mensagemLembrete: 'Olá, {nome}! Passando para lembrar do seu horário na {barbearia}: {servico} em {data} às {horario}. Se não puder vir, é só responder esta mensagem para remarcar. Até lá!',
 
   // --- Serviços ---
   // nome:   como aparece na hora de agendar

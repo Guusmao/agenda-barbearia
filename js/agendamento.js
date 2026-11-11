@@ -20,8 +20,11 @@
   const btnSubmit = document.getElementById('btnSubmit');
   const toastContainer = document.getElementById('toastContainer');
 
+  const VARIOS_BARBEIROS = window.APP_CONFIG.temVariosBarbeiros;
+  const barbeiroHidden = document.getElementById('barbeiro');
+
   let selectedSlot = null;
-  let horariosOcupados = [];
+  let horariosOcupados = []; // [{ horario, barbeiro }]
   let diaBloqueado = false;
 
   // --- Init ---
@@ -29,6 +32,7 @@
     setMinDate();
     renderTimeSlots();
     initServiceSelection();
+    initBarberSelection();
     checkAuth(); // Check if already logged in
 
     dataInput.addEventListener('change', onDateChange);
@@ -68,6 +72,29 @@
         servicoSelect.value = item.dataset.value;
       });
     });
+  }
+
+  // --- Barber Selection (só aparece com 2 ou mais barbeiros) ---
+  function initBarberSelection() {
+    const items = document.querySelectorAll('#barberSelection .service-item');
+    items.forEach(item => {
+      item.addEventListener('click', () => {
+        items.forEach(i => i.classList.remove('selected'));
+        item.classList.add('selected');
+        barbeiroHidden.value = item.dataset.value;
+        selectedSlot = null;
+        horarioHidden.value = '';
+        renderTimeSlots();
+      });
+    });
+  }
+
+  // Um horário está ocupado para o barbeiro escolhido se ele já tem cliente
+  // ou se o dono bloqueou o horário para todos (barbeiro vazio)
+  function horarioOcupado(horario) {
+    return horariosOcupados.some(o =>
+      o.horario === horario && (!VARIOS_BARBEIROS || !o.barbeiro || o.barbeiro === barbeiroHidden.value)
+    );
   }
 
   // --- Set min date to today ---
@@ -134,13 +161,13 @@
     try {
       const { data, error } = await window.db
         .from('horarios_ocupados')
-        .select('horario')
+        .select('horario, barbeiro')
         .eq('data', dataSelecionada);
 
       if (error) {
         console.warn('Erro ao buscar horários:', error.message);
       } else if (data) {
-        horariosOcupados = data.map(item => item.horario);
+        horariosOcupados = data;
       }
     } catch (err) {
       console.warn('Supabase não configurado ou sem conexão. Continuando sem verificação de ocupação.');
@@ -165,6 +192,11 @@
       return;
     }
 
+    if (VARIOS_BARBEIROS && !barbeiroHidden.value) {
+      timeSlotsGrid.innerHTML = '<p class="time-slots-hint">Escolha o barbeiro para ver os horários livres.</p>';
+      return;
+    }
+
     const dataSelecionada = dataInput.value;
     const now = new Date();
     const todayStr = getLocalDateString(now);
@@ -175,7 +207,7 @@
       slotEl.className = 'time-slot';
       slotEl.textContent = horario;
 
-      const isOccupied = horariosOcupados.includes(horario);
+      const isOccupied = horarioOcupado(horario);
       let isDisabled = false;
 
       if (isToday) {
@@ -255,6 +287,10 @@
       dataInput.focus();
       return;
     }
+    if (VARIOS_BARBEIROS && !barbeiroHidden.value) {
+      showToast('Escolha o barbeiro.', 'warning');
+      return;
+    }
     if (!horario) {
       showToast('Selecione um horário disponível.', 'warning');
       return;
@@ -292,7 +328,8 @@
         p_nome: nome,
         p_telefone: telefone,
         p_data: data,
-        p_horario: horario
+        p_horario: horario,
+        p_barbeiro: VARIOS_BARBEIROS ? barbeiroHidden.value : null
       });
 
       if (insertError) {
@@ -300,7 +337,7 @@
         const msg = insertError.message || '';
         if (msg.includes('HORARIO_OCUPADO')) {
           showToast('Este horário acabou de ser reservado. Escolha outro.', 'error');
-          horariosOcupados.push(horario);
+          horariosOcupados.push({ horario, barbeiro: barbeiroHidden.value || null });
           renderTimeSlots();
           selectedSlot = null;
           horarioHidden.value = '';
@@ -321,6 +358,8 @@
       form.reset();
       const serviceItems = document.querySelectorAll('#serviceSelection .service-item');
       serviceItems.forEach(i => i.classList.remove('selected'));
+      document.querySelectorAll('#barberSelection .service-item').forEach(i => i.classList.remove('selected'));
+      barbeiroHidden.value = '';
       selectedSlot = null;
       horarioHidden.value = '';
       setMinDate();

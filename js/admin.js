@@ -129,6 +129,13 @@
   const modalTelefone = document.getElementById('modalTelefone');
 
   const HORARIOS_DISPONIVEIS = window.APP_CONFIG.horarios;
+  const VARIOS_BARBEIROS = window.APP_CONFIG.temVariosBarbeiros;
+  const modalBarbeiro = document.getElementById('modalBarbeiro');
+
+  // Mesmo critério do banco: ocupado se o barbeiro já tem cliente ou se o horário foi bloqueado para todos
+  function conflita(ag, barbeiro) {
+    return !VARIOS_BARBEIROS || !ag.barbeiro || !barbeiro || ag.barbeiro === barbeiro;
+  }
 
   function showDashboard() {
     const adminLogin = document.getElementById('adminLogin');
@@ -189,6 +196,7 @@
     formNovaReserva.addEventListener('submit', salvarReservaManual);
     modalTelefone.addEventListener('input', formatModalPhone);
     modalData.addEventListener('change', carregarHorariosModal);
+    if (modalBarbeiro) modalBarbeiro.addEventListener('change', carregarHorariosModal);
     initModalServiceSelection();
 
     if (cardAgendadosTotal) {
@@ -586,6 +594,7 @@
         }
       });
       document.getElementById('modalServico').value = agData.servico;
+      modalBarbeiro.value = agData.barbeiro || '';
       
       // Carregar horários e depois selecionar o atual
       carregarHorariosModal().then(() => {
@@ -601,6 +610,7 @@
       serviceItems.forEach(i => i.classList.remove('selected'));
       document.getElementById('modalServico').value = '';
       document.getElementById('modalBookingId').value = '';
+      modalBarbeiro.value = '';
       
       // Set min date to today
       const today = getLocalDateString();
@@ -641,11 +651,13 @@
       try {
         const { data, error } = await window.db
           .from('agendamentos')
-          .select('horario')
+          .select('id, horario, barbeiro')
           .eq('data', dataSel)
           .neq('status', 'cancelado');
         if (!error && data) {
-          ocupados = data.map(d => d.horario);
+          ocupados = data
+            .filter(d => d.id !== editingId && conflita(d, modalBarbeiro.value))
+            .map(d => d.horario);
         }
       } catch(e) { /* ignore */ }
     }
@@ -670,12 +682,14 @@
     const telefone = modalTelefone.value.trim();
     const data = modalData.value;
     const horario = modalHorario.value;
+    const barbeiro = VARIOS_BARBEIROS ? modalBarbeiro.value : null;
     const id = document.getElementById('modalBookingId').value;
 
     if (!servico) { showToast('Selecione um serviço.', 'warning'); return; }
     if (!nome) { showToast('Informe o nome do cliente.', 'warning'); return; }
     if (!telefone || telefone.replace(/\D/g, '').length < 10) { showToast('Informe um telefone válido.', 'warning'); return; }
     if (!data) { showToast('Selecione a data.', 'warning'); return; }
+    if (VARIOS_BARBEIROS && !barbeiro) { showToast('Selecione o barbeiro.', 'warning'); return; }
     if (!horario) { showToast('Selecione um horário.', 'warning'); return; }
 
     try {
@@ -683,18 +697,19 @@
       let needsCheck = true;
       if (modalMode === 'edit') {
         const original = currentAgendamentos.find(a => a.id == id);
-        if (original && original.data === data && original.horario === horario) {
+        if (original && original.data === data && original.horario === horario && (original.barbeiro || null) === barbeiro) {
           needsCheck = false;
         }
       }
 
       if (needsCheck) {
-        const { data: existing, error: checkErr } = await window.db
+        const { data: mesmoHorario, error: checkErr } = await window.db
           .from('agendamentos')
-          .select('id')
+          .select('id, barbeiro')
           .eq('data', data)
           .eq('horario', horario)
           .neq('status', 'cancelado');
+        const existing = (mesmoHorario || []).filter(a => a.id !== id && conflita(a, barbeiro));
 
         if (checkErr) {
           showToast('Erro ao verificar horário: ' + checkErr.message, 'error');
@@ -710,7 +725,7 @@
       if (modalMode === 'edit') {
         const { error: updateErr } = await window.db
           .from('agendamentos')
-          .update({ servico, nome, telefone, data, horario })
+          .update({ servico, nome, telefone, data, horario, barbeiro })
           .eq('id', id);
 
         if (updateErr) {
@@ -721,7 +736,7 @@
       } else {
         const { error: insertErr } = await window.db
           .from('agendamentos')
-          .insert([{ servico, nome, telefone, data, horario, status: 'agendado' }]);
+          .insert([{ servico, nome, telefone, data, horario, barbeiro, status: 'agendado' }]);
 
         if (insertErr) {
           showToast('Erro ao criar: ' + insertErr.message, 'error');
@@ -890,7 +905,7 @@
       if (vencido) tr.classList.add('row-vencido');
       tr.innerHTML = `
         <td data-label="Serviço"><span class="badge badge-service">${escapeHTML(ag.servico)}</span></td>
-        <td data-label="Cliente">${escapeHTML(ag.nome)}</td>
+        <td data-label="Cliente">${escapeHTML(ag.nome)}${ag.barbeiro ? `<br><span class="badge-barbeiro">✂ ${escapeHTML(ag.barbeiro)}</span>` : ''}</td>
         <td data-label="Telefone">
           ${escapeHTML(ag.telefone)}
           <a href="https://wa.me/55${ag.telefone.replace(/\D/g, '')}" target="_blank" class="whatsapp-link" title="Conversar no WhatsApp" style="margin-left: 5px; display: inline-flex; align-items: center; vertical-align: middle;">
@@ -904,6 +919,7 @@
           <div style="display:flex; gap:5px; flex-wrap:wrap;">
             ${vencido ? `<button class="btn-action btn-confirmar-realizado" data-id="${ag.id}" title="Confirmar como Realizado">✅</button>` : ''}
             <button class="btn-action btn-edit" data-id="${ag.id}" title="Editar">✏️</button>
+            ${podeLembrar(ag) ? `<a href="${linkLembrete(ag)}" target="_blank" rel="noopener" class="btn-action btn-lembrete" title="Enviar lembrete no WhatsApp">🔔</a>` : ''}
             <a href="${generateGoogleCalendarUrl(ag)}" target="_blank" class="btn-action btn-google" title="Adicionar ao Google Agenda">📅</a>
             <button class="btn-action btn-delete-perm" data-id="${ag.id}" title="Excluir Definitivamente">🗑️</button>
           </div>
@@ -969,7 +985,7 @@
           <div class="crm-card-time">${ag.horario}</div>
           <div class="crm-card-service-badge">${escapeHTML(ag.servico)}</div>
         </div>
-        <div class="crm-card-client">${escapeHTML(ag.nome)}</div>
+        <div class="crm-card-client">${escapeHTML(ag.nome)}${ag.barbeiro ? ` <span class="badge-barbeiro">✂ ${escapeHTML(ag.barbeiro)}</span>` : ''}</div>
         <div class="crm-card-phone">
           <a href="https://wa.me/55${ag.telefone.replace(/\D/g, '')}" target="_blank" class="phone-link" title="Abrir WhatsApp">
             <span class="phone-icon">
@@ -980,6 +996,7 @@
             ${escapeHTML(ag.telefone)}
           </a>
         </div>
+        ${podeLembrar(ag) ? `<a href="${linkLembrete(ag)}" target="_blank" rel="noopener" class="btn-crm-lembrete">🔔 Enviar lembrete no WhatsApp</a>` : ''}
         <div class="crm-card-footer">
           ${nextStatus ? `
             <button class="btn-crm-action btn-crm-next" data-id="${ag.id}" data-next="${nextStatus}">
@@ -1034,7 +1051,7 @@
           <div class="crm-card-time">${ag.horario}</div>
           <div class="crm-card-service-badge">${escapeHTML(ag.servico)}</div>
         </div>
-        <div class="crm-card-client">${escapeHTML(ag.nome)}</div>
+        <div class="crm-card-client">${escapeHTML(ag.nome)}${ag.barbeiro ? ` <span class="badge-barbeiro">✂ ${escapeHTML(ag.barbeiro)}</span>` : ''}</div>
         <div class="crm-card-phone">
           <a href="https://wa.me/55${ag.telefone.replace(/\D/g, '')}" target="_blank" class="phone-link" title="Abrir WhatsApp">
             <span class="phone-icon">
@@ -1367,6 +1384,24 @@
     } catch (e) {
       console.warn('Erro ao tocar som:', e);
     }
+  }
+
+  // --- Lembrete no WhatsApp ---
+  function podeLembrar(ag) {
+    const ativo = ['agendado', 'confirmado'].includes(ag.status || 'agendado');
+    return ativo && (ag.telefone || '').replace(/\D/g, '').length >= 10;
+  }
+
+  function linkLembrete(ag) {
+    const valores = {
+      nome: (ag.nome || '').split(' ')[0],
+      servico: ag.servico,
+      data: formatDateBR(ag.data),
+      horario: ag.horario,
+      barbearia: window.APP_CONFIG.nome
+    };
+    const texto = window.APP_CONFIG.mensagemLembrete.replace(/\{(\w+)\}/g, (m, chave) => valores[chave] ?? m);
+    return `https://wa.me/55${ag.telefone.replace(/\D/g, '')}?text=${encodeURIComponent(texto)}`;
   }
 
   function generateGoogleCalendarUrl(ag) {

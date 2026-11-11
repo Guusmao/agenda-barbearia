@@ -88,6 +88,12 @@
   }
 
   // --- Render Results ---
+  function escapeHTML(str) {
+    const div = document.createElement('div');
+    div.textContent = str || '';
+    return div.innerHTML;
+  }
+
   function renderResults(agendamentos) {
     if (!agendamentos || agendamentos.length === 0) {
       resultsContainer.innerHTML = `
@@ -145,7 +151,7 @@
       html += `
         <div class="${cardClass}">
           <h4>
-            <span class="service-name">${item.servico}</span>
+            <span class="service-name">${escapeHTML(item.servico)}</span>
             ${statusBadge}
           </h4>
           <div class="agendamento-details">
@@ -157,8 +163,14 @@
             <div class="agendamento-detail">
               <span class="detail-icon">${clockIcon}</span>
               <span class="detail-label">Horário:</span>
-              <span class="detail-value">${item.horario}</span>
+              <span class="detail-value">${escapeHTML(item.horario)}</span>
             </div>
+            ${item.barbeiro ? `
+            <div class="agendamento-detail">
+              <span class="detail-icon">✂</span>
+              <span class="detail-label">Barbeiro:</span>
+              <span class="detail-value">${escapeHTML(item.barbeiro)}</span>
+            </div>` : ''}
           </div>
           ${cancelBtnHtml}
         </div>

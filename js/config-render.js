@@ -73,6 +73,28 @@
     if (grid) grid.innerHTML = todosServicos.map(itemSelecao).join('');
   });
 
+  // --- Barbeiros ---
+  cfg.barbeiros = cfg.barbeiros || [];
+  cfg.temVariosBarbeiros = cfg.barbeiros.length >= 2;
+  if (cfg.temVariosBarbeiros) {
+    const grid = document.getElementById('barberSelection');
+    if (grid) {
+      grid.innerHTML = cfg.barbeiros.map(b => `
+        <div class="service-item" data-value="${esc(b.nome)}">
+          <span class="service-item-icon barber-avatar">${esc(b.nome.trim().charAt(0).toUpperCase())}</span>
+          <span class="service-item-name">${esc(b.nome)}</span>
+          ${b.desc ? `<span class="service-item-price barber-desc">${esc(b.desc)}</span>` : ''}
+        </div>`).join('');
+      document.getElementById('barbeiroGroup').hidden = false;
+    }
+    const sel = document.getElementById('modalBarbeiro');
+    if (sel) {
+      sel.innerHTML = '<option value="" disabled selected>Selecione</option>' +
+        cfg.barbeiros.map(b => `<option value="${esc(b.nome)}">${esc(b.nome)}</option>`).join('');
+      document.getElementById('modalBarbeiroGroup').hidden = false;
+    }
+  }
+
   // --- Catálogo da página "Nossos Serviços" ---
   const catalogo = document.getElementById('catalogoServicos');
   if (catalogo) {

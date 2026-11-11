@@ -2671,3 +2671,64 @@ tr.row-vencido {
     padding: 8px 12px;
   }
 }
+
+/* --- Lembrete no WhatsApp --- */
+.btn-crm-lembrete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 10px 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(37, 211, 102, 0.35);
+  background: rgba(37, 211, 102, 0.08);
+  color: #25d366;
+  font-size: 0.75rem;
+  font-weight: 700;
+  transition: background 0.2s ease;
+}
+
+.btn-crm-lembrete:hover {
+  background: rgba(37, 211, 102, 0.16);
+}
+
+/* --- Escolha do barbeiro --- */
+.barber-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(var(--accent-rgb), 0.15);
+  color: var(--accent-light);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.barber-desc {
+  color: var(--text-secondary) !important;
+  font-weight: 400 !important;
+  font-size: 0.75rem !important;
+}
+
+.badge-barbeiro {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(var(--accent-rgb), 0.12);
+  color: var(--accent-light);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.time-slots-hint {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  padding: 16px 8px;
+}
