@@ -71,12 +71,7 @@
     resultsContainer.innerHTML = '';
 
     try {
-      const { data, error } = await window.supabaseClient
-        .from('agendamentos')
-        .select('*')
-        .eq('telefone', telefone)
-        .order('data', { ascending: false })
-        .order('horario', { ascending: false });
+      const { data, error } = await window.db.rpc('meus_agendamentos', { p_telefone: telefone });
 
       if (error) {
         showToast('Erro ao buscar agendamentos. Tente novamente.', 'error');
@@ -194,14 +189,16 @@
     setLoading(true);
 
     try {
-      const { error } = await window.supabaseClient
-        .from('agendamentos')
-        .update({ status: 'cancelado' })
-        .eq('id', id);
+      const { data: cancelado, error } = await window.db.rpc('cancelar_meu_agendamento', {
+        p_id: id,
+        p_telefone: telefoneInput.value.trim()
+      });
 
       if (error) {
-        console.error('Erro Supabase:', error);
+        console.error('Erro ao cancelar:', error);
         showToast('Erro: ' + error.message, 'error');
+      } else if (!cancelado) {
+        showToast('Este agendamento não pode mais ser cancelado.', 'warning');
       } else {
         showToast('Agendamento cancelado com sucesso!', 'success');
         // Re-trigger search to refresh UI

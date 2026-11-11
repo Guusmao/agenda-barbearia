@@ -117,7 +117,7 @@
 
     try {
       // Verificar se o dia está bloqueado
-      const { data: bloqueios, error: bloqueioErr } = await window.supabaseClient
+      const { data: bloqueios, error: bloqueioErr } = await window.db
         .from('dias_bloqueados')
         .select('id')
         .eq('data', dataSelecionada);
@@ -132,10 +132,8 @@
     }
 
     try {
-      console.log('DEBUG SUPABASE:', typeof window.supabase, typeof window.supabaseClient);
-      if (window.supabaseClient) console.log('KEYS:', Object.keys(window.supabaseClient));
-      const { data, error } = await window.supabaseClient
-        .from('agendamentos')
+      const { data, error } = await window.db
+        .from('horarios_ocupados')
         .select('horario')
         .eq('data', dataSelecionada);
 
@@ -288,47 +286,29 @@
     setLoading(true);
 
     try {
-      // Double-check if slot is still free
-      const { data: existing, error: checkError } = await window.supabaseClient
-        .from('agendamentos')
-        .select('id')
-        .eq('data', data)
-        .eq('horario', horario);
-
-      if (checkError) {
-        console.error('Check Error:', JSON.stringify(checkError, null, 2));
-        showToast('Erro de conexão com o banco de dados. Verifique se o seu projeto Supabase está ativo. Detalhes: ' + checkError.message, 'error');
-        setLoading(false);
-        return;
-      }
-
-      if (existing && existing.length > 0) {
-        showToast('Este horário acabou de ser reservado. Escolha outro.', 'error');
-        horariosOcupados.push(horario);
-        renderTimeSlots();
-        selectedSlot = null;
-        horarioHidden.value = '';
-        setLoading(false);
-        return;
-      }
-
-      // Insert
-      const { error: insertError } = await window.supabaseClient
-        .from('agendamentos')
-        .insert([
-          {
-            servico: servico,
-            nome: nome,
-            telefone: telefone,
-            data: data,
-            horario: horario,
-            status: 'agendado',
-          }
-        ]);
+      // A função criar_agendamento valida os dados e recusa horário já ocupado
+      const { error: insertError } = await window.db.rpc('criar_agendamento', {
+        p_servico: servico,
+        p_nome: nome,
+        p_telefone: telefone,
+        p_data: data,
+        p_horario: horario
+      });
 
       if (insertError) {
         console.error('Insert error:', insertError);
-        showToast('Erro ao agendar. Verifique os dados e tente novamente.', 'error');
+        const msg = insertError.message || '';
+        if (msg.includes('HORARIO_OCUPADO')) {
+          showToast('Este horário acabou de ser reservado. Escolha outro.', 'error');
+          horariosOcupados.push(horario);
+          renderTimeSlots();
+          selectedSlot = null;
+          horarioHidden.value = '';
+        } else if (msg.includes('DIA_BLOQUEADO')) {
+          showToast('A barbearia não atende neste dia. Escolha outra data.', 'error');
+        } else {
+          showToast('Erro ao agendar. Verifique os dados e tente novamente.', 'error');
+        }
         setLoading(false);
         return;
       }

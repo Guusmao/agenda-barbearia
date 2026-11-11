@@ -142,6 +142,7 @@
       document.getElementById('btnLogout').addEventListener('click', () => {
         if (isAdmin) {
           localStorage.removeItem('adminAuth');
+          window.db.auth.signOut().catch(() => {});
         }
         window.Auth.logout();
         showToast('Sessão encerrada.', 'info');

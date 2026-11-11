@@ -70,29 +70,46 @@
     const adminLogin = document.getElementById('adminLogin');
     const adminDashboard = document.getElementById('adminDashboard');
     const adminLoginForm = document.getElementById('adminLoginForm');
-    
-    // Auth check
-    if (localStorage.getItem('adminAuth') === 'true') {
-      showDashboard();
-    } else {
+
+    function mostrarLogin() {
+      localStorage.removeItem('adminAuth');
       if (adminLogin) adminLogin.style.display = 'flex';
       if (adminDashboard) adminDashboard.style.display = 'none';
-      if (adminLoginForm) {
-        adminLoginForm.addEventListener('submit', (e) => {
-          e.preventDefault();
-          const user = document.getElementById('adminUser').value;
-          const pass = document.getElementById('adminPass').value;
-          if (user === 'seucarlos' && pass === 'seucarlos') {
-            localStorage.setItem('adminAuth', 'true');
-            // Notificar o navbar (auth-ui.js) da mudança de estado
-            window.dispatchEvent(new CustomEvent('auth-changed'));
-            showToast('Autenticado com sucesso!', 'success');
-            showDashboard();
-          } else {
-            showToast('Usuário ou senha incorretos.', 'error');
-          }
-        });
+    }
+
+    // Só entra no painel quem fez login e está cadastrado na tabela "admins".
+    // O banco confere isso de novo em cada consulta, então esta checagem é só visual.
+    async function entrarSeForAdmin(mostrarErro) {
+      const { data: isAdmin, error } = await window.db.rpc('is_admin');
+      if (!error && isAdmin === true) {
+        localStorage.setItem('adminAuth', 'true');
+        window.dispatchEvent(new CustomEvent('auth-changed'));
+        showDashboard();
+        return true;
       }
+      if (mostrarErro) showToast('Esta conta não tem acesso ao painel.', 'error');
+      await window.db.auth.signOut();
+      mostrarLogin();
+      return false;
+    }
+
+    mostrarLogin();
+    window.db.auth.getSession().then(({ data }) => {
+      if (data && data.session) entrarSeForAdmin(false);
+    }).catch(() => {});
+
+    if (adminLoginForm) {
+      adminLoginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('adminUser').value.trim();
+        const password = document.getElementById('adminPass').value;
+        const { error } = await window.db.auth.signIn.email({ email, password });
+        if (error) {
+          showToast('E-mail ou senha incorretos.', 'error');
+          return;
+        }
+        if (await entrarSeForAdmin(true)) showToast('Autenticado com sucesso!', 'success');
+      });
     }
   }
 
@@ -147,13 +164,7 @@
     });
 
     // --- Realtime Subscription ---
-    console.log('Admin Dashboard: Iniciando Realtime...');
     initRealtime();
-
-    // --- Push Notifications (Web Push para celular do admin) ---
-    if (window.PushAdmin) {
-      window.PushAdmin.init().catch(e => console.warn('[Push] Init falhou:', e));
-    }
 
     // --- Cancel Day ---
     btnCancelarDia.addEventListener('click', cancelarDia);
@@ -300,7 +311,7 @@
       if (!confirmed) return;
 
       try {
-        const { error } = await window.supabaseClient
+        const { error } = await window.db
           .from('agendamentos')
           .delete()
           .eq('id', existingId);
@@ -317,7 +328,7 @@
     } else {
       // Bloquear
       try {
-        const { error } = await window.supabaseClient
+        const { error } = await window.db
           .from('agendamentos')
           .insert([{
             servico: 'BLOQUEIO',
@@ -392,7 +403,7 @@
 
     // Count how many agendado bookings exist for that day
     try {
-      const { data: agendados, error } = await window.supabaseClient
+      const { data: agendados, error } = await window.db
         .from('agendamentos')
         .select('id')
         .eq('data', data)
@@ -417,7 +428,7 @@
       if (!confirmed) return;
 
       const ids = agendados.map(a => a.id);
-      const { error: updateErr } = await window.supabaseClient
+      const { error: updateErr } = await window.db
         .from('agendamentos')
         .update({ status: 'cancelado' })
         .in('id', ids);
@@ -444,7 +455,7 @@
 
   async function verificarBloqueio(data) {
     try {
-      const { data: rows, error } = await window.supabaseClient
+      const { data: rows, error } = await window.db
         .from('dias_bloqueados')
         .select('id')
         .eq('data', data);
@@ -502,7 +513,7 @@
       if (!confirmed) return;
 
       try {
-        const { error } = await window.supabaseClient
+        const { error } = await window.db
           .from('dias_bloqueados')
           .delete()
           .eq('data', data);
@@ -526,7 +537,7 @@
       if (!confirmed) return;
 
       try {
-        const { error } = await window.supabaseClient
+        const { error } = await window.db
           .from('dias_bloqueados')
           .insert([{ data }]);
 
@@ -628,7 +639,7 @@
     let ocupados = [];
     if (dataSel) {
       try {
-        const { data, error } = await window.supabaseClient
+        const { data, error } = await window.db
           .from('agendamentos')
           .select('horario')
           .eq('data', dataSel)
@@ -678,7 +689,7 @@
       }
 
       if (needsCheck) {
-        const { data: existing, error: checkErr } = await window.supabaseClient
+        const { data: existing, error: checkErr } = await window.db
           .from('agendamentos')
           .select('id')
           .eq('data', data)
@@ -697,7 +708,7 @@
       }
 
       if (modalMode === 'edit') {
-        const { error: updateErr } = await window.supabaseClient
+        const { error: updateErr } = await window.db
           .from('agendamentos')
           .update({ servico, nome, telefone, data, horario })
           .eq('id', id);
@@ -708,7 +719,7 @@
         }
         showToast('Reserva atualizada!', 'success');
       } else {
-        const { error: insertErr } = await window.supabaseClient
+        const { error: insertErr } = await window.db
           .from('agendamentos')
           .insert([{ servico, nome, telefone, data, horario, status: 'agendado' }]);
 
@@ -768,7 +779,7 @@
   // --- Load agendamentos ---
   async function loadAgendamentos(filterDate) {
     try {
-      let query = window.supabaseClient
+      let query = window.db
         .from('agendamentos')
         .select('*')
         .order('data', { ascending: true })
@@ -812,7 +823,7 @@
       const currentMonth = now.getMonth(); // 0-11
       const currentYear = now.getFullYear();
 
-      const { data: allData, error: allErr } = await window.supabaseClient
+      const { data: allData, error: allErr } = await window.db
         .from('agendamentos')
         .select('data, status, servico');
 
@@ -1068,7 +1079,7 @@
     if (!confirmed) return;
 
     try {
-      const { error } = await window.supabaseClient
+      const { error } = await window.db
         .from('agendamentos')
         .update({ status: newStatus })
         .eq('id', id);
@@ -1099,7 +1110,7 @@
     if (!confirmed) return;
 
     try {
-      const { error } = await window.supabaseClient
+      const { error } = await window.db
         .from('agendamentos')
         .update({ status: 'realizado' })
         .eq('id', id);
@@ -1135,7 +1146,7 @@
 
     try {
       const ids = vencidos.map(a => a.id);
-      const { error } = await window.supabaseClient
+      const { error } = await window.db
         .from('agendamentos')
         .update({ status: 'realizado' })
         .in('id', ids);
@@ -1163,7 +1174,7 @@
     if (!confirmed) return;
 
     try {
-      const { error } = await window.supabaseClient
+      const { error } = await window.db
         .from('agendamentos')
         .delete()
         .eq('id', id);
@@ -1204,7 +1215,7 @@
 
     try {
       // Deletar todos os agendamentos
-      const { error: errAg } = await window.supabaseClient
+      const { error: errAg } = await window.db
         .from('agendamentos')
         .delete()
         .not('id', 'is', null);
@@ -1215,7 +1226,7 @@
       }
 
       // Deletar todos os dias bloqueados
-      const { error: errBloq } = await window.supabaseClient
+      const { error: errBloq } = await window.db
         .from('dias_bloqueados')
         .delete()
         .not('id', 'is', null);
@@ -1257,13 +1268,6 @@
   // Realtime & Notifications
   // ==========================================
   function initRealtime() {
-    if (!window.supabaseClient) {
-      console.error('Realtime: supabaseClient não encontrado.');
-      return;
-    }
-
-    console.log('Realtime: Tentando estabelecer conexão...');
-
     // Pedir permissão para notificações
     if (Notification.permission === "default") {
       Notification.requestPermission().then(perm => {
@@ -1292,39 +1296,21 @@
       });
     }
 
-    // Subscrever com canal único para evitar conflitos
-    const channelId = `admin_channel_${Math.floor(Math.random() * 10000)}`;
-    const channel = window.supabaseClient
-      .channel(channelId)
-      .on(
-        'postgres_changes',
-        { 
-          event: 'INSERT', 
-          schema: 'public', 
-          table: 'agendamentos' 
-        },
-        (payload) => {
-          console.log('Realtime: EVENTO RECEBIDO!', payload);
-          const novo = payload.new;
-          notifyNewBooking(novo);
-          
-          // Atualizar interface
-          if (!filtroData.value || filtroData.value === novo.data) {
-            loadAgendamentos(filtroData.value || null);
-            loadStats();
-          }
-        }
-      )
-      .subscribe((status, err) => {
-        console.log(`Realtime [${channelId}] Status:`, status);
-        if (err) console.error('Realtime Error:', err);
-        
-        if (status === 'SUBSCRIBED') {
-          console.log('%c Realtime: Conectado e ouvindo novos agendamentos! ', 'background: #222; color: #bada55; font-weight: bold;');
-        } else if (status === 'CHANNEL_ERROR') {
-          console.error('Realtime: Erro de canal. Verifique se o Realtime está ativo no Supabase (Replication).');
-        }
-      });
+    // Confere novos agendamentos a cada 30 segundos
+    let ultimoVisto = new Date().toISOString();
+    setInterval(async () => {
+      const { data, error } = await window.db
+        .from('agendamentos')
+        .select('*')
+        .gt('created_at', ultimoVisto)
+        .neq('status', 'bloqueado')
+        .order('created_at', { ascending: true });
+      if (error || !data || data.length === 0) return;
+      ultimoVisto = data[data.length - 1].created_at;
+      data.forEach(notifyNewBooking);
+      loadAgendamentos(filtroData.value || null);
+      loadStats();
+    }, 30000);
   }
 
   function notifyNewBooking(booking) {
@@ -1333,10 +1319,7 @@
     
     console.log('Notificando:', text);
 
-    // 1. Push Notification real para o celular do admin (via Edge Function VAPID)
-    sendPushToAdmin(booking).catch(e => console.warn('[Push] Falha ao enviar push:', e));
-
-    // 2. Notificação local do navegador (fallback se o push estiver aberto)
+    // 1. Notificação local do navegador (fallback se o push estiver aberto)
     if ('Notification' in window) {
       if (Notification.permission === 'granted') {
         // Preferir service worker para exibir (assim funciona mesmo minimizado)
@@ -1370,7 +1353,7 @@
 
     // 4. Alerta de confirmação para o teste manual
     if (booking.nome === 'CLIENTE TESTE') {
-      window.UI.alert('Teste de Notificação', 'Push enviado para o celular! Se registrou com sucesso, você deverá receber a notificação no Chrome do celular. Verifique também se o Chrome está com permissão de notificação nas configurações do sistema.');
+      window.UI.alert('Teste de Notificação', 'Se a notificação apareceu, está tudo certo. Deixe o painel aberto para receber os avisos de novos agendamentos.');
     }
 
     // 5. Som de alerta
@@ -1383,37 +1366,6 @@
       }
     } catch (e) {
       console.warn('Erro ao tocar som:', e);
-    }
-  }
-
-  /**
-   * Envia notificação push real para o celular do admin via Supabase Edge Function.
-   * A Edge Function usa VAPID para autenticar e envia para todas as subscriptions
-   * registradas para o email renanlimalirav@gmail.com.
-   */
-  async function sendPushToAdmin(booking) {
-    const EDGE_FUNCTION_URL = 'https://mkakccwunpkytkkkvebt.supabase.co/functions/v1/send-push-notification';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rYWtjY3d1bnBreXRra2t2ZWJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNTU2NDQsImV4cCI6MjA4ODczMTY0NH0.cg4prSRWUa9vY9zKVq7VN0Yi0bqU_1RX5vHRm4tRFd8';
-
-    try {
-      const response = await fetch(EDGE_FUNCTION_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-        },
-        body: JSON.stringify({ agendamento: booking })
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        console.log('[Push] Edge Function respondeu:', result);
-      } else {
-        const errText = await response.text();
-        console.warn(`[Push] Edge Function retornou ${response.status}:`, errText);
-      }
-    } catch (err) {
-      console.warn('[Push] Erro ao chamar Edge Function:', err.message);
     }
   }
 

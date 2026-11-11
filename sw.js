@@ -3,13 +3,16 @@
 // Versão com suporte a Push Notifications
 // ==========================================
 
-const CACHE_NAME = 'barbearia-cache-v19';
+const CACHE_NAME = 'barbearia-cache-v20';
 const urlsToCache = [
   './',
   './index.html',
   './css/style.css',
   './css/ui-components.css',
-  './js/supabase.js',
+  './js/vendor/neon-js-0.10.2.min.js',
+  './js/config.js',
+  './js/config-render.js',
+  './js/db.js',
   './js/auth.js',
   './js/auth-ui.js',
   './js/agendamento.js',
@@ -17,7 +20,6 @@ const urlsToCache = [
   './js/admin.js',
   './js/router.js',
   './js/ui-components.js',
-  './js/push-notifications.js',
   './img/icon-192.png',
   './img/icon-512.png',
   './img/agendbarber_icon.png'
@@ -50,7 +52,7 @@ self.addEventListener('activate', event => {
 
 // --- Fetch (cache-first para arquivos locais) ---
 self.addEventListener('fetch', event => {
-  // Ignora requisições externas (Supabase, etc)
+  // Ignora requisições externas (banco de dados, etc)
   if (event.request.url.startsWith('http') && !event.request.url.includes(location.origin)) {
     return;
   }
@@ -141,56 +143,6 @@ self.addEventListener('notificationclick', event => {
       if (clients.openWindow) {
         return clients.openWindow(urlToOpen);
       }
-    })
-  );
-});
-
-/**
- * Evento 'pushsubscriptionchange': disparado quando o browser renova a subscription.
- * Reenvia a nova subscription ao servidor automaticamente.
- */
-self.addEventListener('pushsubscriptionchange', event => {
-  console.log('[SW] Subscription changed, resubscribing...');
-  
-  const VAPID_PUBLIC_KEY = 'BKBHeMc_FsgxG746L15O8QcJjRdd152lxiolvWhQLxl0T9C5tIyW0eozRxTUzcjT5fRHMpbJuYxGhtdlVeJ6pB0';
-  
-  function urlBase64ToUint8Array(base64String) {
-    const padding = '='.repeat((4 - base64String.length % 4) % 4);
-    const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
-    const rawData = atob(base64);
-    const outputArray = new Uint8Array(rawData.length);
-    for (let i = 0; i < rawData.length; ++i) {
-      outputArray[i] = rawData.charCodeAt(i);
-    }
-    return outputArray;
-  }
-
-  event.waitUntil(
-    self.registration.pushManager.subscribe({
-      userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
-    }).then(subscription => {
-      // Enviar nova subscription ao Supabase via fetch
-      const SUPABASE_URL = 'https://mkakccwunpkytkkkvebt.supabase.co';
-      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rYWtjY3d1bnBreXRra2t2ZWJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNTU2NDQsImV4cCI6MjA4ODczMTY0NH0.cg4prSRWUa9vY9zKVq7VN0Yi0bqU_1RX5vHRm4tRFd8';
-      
-      const subData = subscription.toJSON();
-      return fetch(`${SUPABASE_URL}/rest/v1/push_subscriptions`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': SUPABASE_ANON_KEY,
-          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-          'Prefer': 'resolution=merge-duplicates'
-        },
-        body: JSON.stringify({
-          endpoint: subData.endpoint,
-          p256dh: subData.keys.p256dh,
-          auth: subData.keys.auth,
-          admin_email: 'renanlimalirav@gmail.com',
-          updated_at: new Date().toISOString()
-        })
-      });
     })
   );
 });

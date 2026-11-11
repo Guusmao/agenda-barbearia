@@ -17,29 +17,12 @@
       if (!telefone) return { error: 'Telefone inválido' };
 
       try {
-        let { data, error } = await window.supabaseClient
-          .from('clientes')
-          .select('*')
-          .eq('telefone', telefone)
-          .single();
+        // buscar_cliente procura no cadastro e, se não achar, no histórico de agendamentos
+        const { data: rows, error } = await window.db.rpc('buscar_cliente', { p_telefone: telefone });
+        const data = rows && rows[0];
 
-        if (error) {
-           // Tenta buscar no histórico de agendamentos
-           const { data: agData, error: agError } = await window.supabaseClient
-             .from('agendamentos')
-             .select('nome, telefone')
-             .eq('telefone', telefone)
-             .limit(1)
-             .maybeSingle();
-
-           if (!agError && agData) {
-             // Auto-registra o cliente
-             await this.register(agData.nome, agData.telefone);
-             data = { nome: agData.nome, telefone: agData.telefone };
-             error = null;
-           } else {
-             return { error: 'Usuário não encontrado' };
-           }
+        if (error || !data) {
+          return { error: 'Usuário não encontrado' };
         }
 
         this.saveSession(data.nome, data.telefone);
@@ -58,15 +41,11 @@
       if (!nome || !telefone) return { error: 'Nome e telefone são obrigatórios' };
       
       try {
-        const { data, error } = await window.supabaseClient
-          .from('clientes')
-          .upsert({ 
-            telefone: telefone, 
-            nome: nome,
-            updated_at: new Date().toISOString()
-          })
-          .select()
-          .single();
+        const { data: rows, error } = await window.db.rpc('salvar_cliente', {
+          p_nome: nome,
+          p_telefone: telefone
+        });
+        const data = rows && rows[0];
 
         if (error) {
           console.error('Register error:', error);

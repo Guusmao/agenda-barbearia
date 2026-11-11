@@ -197,12 +197,12 @@
           
           <form id="adminLoginForm" novalidate>
             <div class="form-group" style="text-align: left;">
-              <label for="adminUser">Usuário</label>
-              <input type="text" id="adminUser" class="form-input" required>
+              <label for="adminUser">E-mail</label>
+              <input type="email" id="adminUser" class="form-input" autocomplete="username" required>
             </div>
             <div class="form-group" style="text-align: left;">
               <label for="adminPass">Senha</label>
-              <input type="password" id="adminPass" class="form-input" required>
+              <input type="password" id="adminPass" class="form-input" autocomplete="current-password" required>
             </div>
             <button type="submit" class="btn btn-primary" style="width: 100%;">Acessar Painel</button>
           </form>
@@ -483,18 +483,17 @@
   <!-- Toast container -->
   <div class="toast-container" id="toastContainer"></div>
 
-  <!-- Supabase CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Cliente do banco (Neon), gerado com: npx esbuild (ver README) -->
+  <script src="js/vendor/neon-js-0.10.2.min.js"></script>
   <!-- App Scripts -->
   <script src="js/config.js?v=16"></script>
   <script src="js/config-render.js?v=16"></script>
   <script src="js/ui-components.js?v=15"></script>
-  <script src="js/supabase.js?v=15"></script>
+  <script src="js/db.js?v=16"></script>
   <script src="js/auth.js?v=15"></script>
   <script src="js/auth-ui.js?v=15"></script>
   <script src="js/agendamento.js?v=15"></script>
   <script src="js/meus_agendamentos.js?v=15"></script>
-  <script src="js/push-notifications.js?v=2"></script>
   <script src="js/admin.js?v=15"></script>
   <script src="js/router.js?v=15"></script>
 
