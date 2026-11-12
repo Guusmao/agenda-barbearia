@@ -53,7 +53,7 @@
     ola.innerHTML = '';
     const t = document.createElement('span');
     if (!primeiro || admin) {
-      t.textContent = 'Seja bem-vinda!';
+      t.textContent = 'Seja bem-vindo!';
       ola.append(t); ola.hidden = false; return;
     }
     t.textContent = 'Olá, ' + primeiro + '!';
