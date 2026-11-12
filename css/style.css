@@ -2780,7 +2780,7 @@ tr.row-vencido {
 /* ========================================
    PAINEL: menu lateral, números compactos e menu de ações
    ======================================== */
-.admin-header { padding: 96px 0 24px; }
+.admin-header { padding: 140px 0 28px; }
 .admin-content { padding: 24px 0 80px; }
 
 .admin-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 28px; align-items: start; }
@@ -2840,7 +2840,7 @@ tr.row-vencido {
 .admin-acoes-sep { border: none; border-top: 1px solid var(--border-color); margin: 4px 0; }
 
 @media (max-width: 900px) {
-  .admin-header { padding: 88px 0 16px; }
+  .admin-header { padding: 100px 0 16px; }
   .admin-header h1 { font-size: 1.5rem; }
   .admin-layout { display: block; }
   .admin-sidenav {
@@ -2890,4 +2890,7 @@ tr.row-vencido {
 #adminDashboard[data-view="funcionamento"] .admin-stats-mais { display: none; }
 @media (max-width: 900px) {
   #adminDashboard:not([data-view="clientes"]):not([data-view="servicos"]):not([data-view="funcionamento"]) .admin-stats-mais { display: block; }
+}
+@media (max-width: 1200px) {
+  .user-info-pill .user-name, .user-info-pill .user-name + span { display: none; }
 }
