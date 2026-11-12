@@ -2836,7 +2836,7 @@ tr.row-vencido {
   text-transform: none; letter-spacing: 0; font-weight: 600; padding: 10px 12px;
 }
 .admin-acoes-menu .btn:hover { background: rgba(var(--accent-rgb), 0.1); transform: none; }
-.admin-acoes-menu #btnLimparDados { color: #c0392b; }
+.admin-acoes-menu #btnLimparDados { color: #f07272; }
 .admin-acoes-sep { border: none; border-top: 1px solid var(--border-color); margin: 4px 0; }
 
 @media (max-width: 900px) {
@@ -2932,7 +2932,7 @@ body[data-tela="view-home"] .footer { display: none; }
     display: flex; flex-direction: column; position: absolute;
     top: calc(100% + 12px); right: 24px; left: auto;
     transform: translateY(-10px) scale(0.97); transform-origin: top right;
-    width: 300px; background: var(--nav-bg-solid);
+    width: 300px; background: rgba(21, 26, 33, 0.97);
     backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
     border: 1px solid var(--border-gold); border-radius: var(--radius-lg);
     padding: 12px 0; gap: 0; z-index: 999;
@@ -2956,7 +2956,7 @@ body[data-tela="view-home"] .footer { display: none; }
 .admin-toolbar .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
 .admin-acoes-menu .btn { display: flex; align-items: center; gap: 10px; }
 .admin-acoes-menu .btn .ico { color: var(--gold-primary); }
-.admin-acoes-menu #btnLimparDados .ico, .admin-acoes-menu #btnCancelarDia .ico { color: #b07272; }
+.admin-acoes-menu #btnLimparDados .ico, .admin-acoes-menu #btnCancelarDia .ico { color: #f07272; }
 .btn-crm-lembrete .ico-svg { width: 16px; height: 16px; }
 
 /* Botões de ação da agenda: todos iguais, numa linha */
@@ -2970,28 +2970,28 @@ body[data-tela="view-home"] .footer { display: none; }
 .acoes-linha .btn-action .ico-svg { width: 17px; height: 17px; }
 .acoes-linha .btn-action:hover { border-color: var(--gold-primary); color: var(--gold-primary); background: rgba(var(--accent-rgb), 0.08); transform: none; filter: none; }
 .acoes-linha .btn-fechar { color: var(--gold-primary); border-color: var(--border-gold); background: rgba(var(--accent-rgb), 0.1); }
-.acoes-linha .btn-confirmar-realizado { color: #7d8a5f; border-color: rgba(125, 138, 95, 0.35); background: rgba(125, 138, 95, 0.08); }
-.acoes-linha .btn-delete-perm { color: #b07272; }
-.acoes-linha .btn-delete-perm:hover { border-color: #b07272; color: #b07272; background: rgba(176, 114, 114, 0.08); }
+.acoes-linha .btn-confirmar-realizado { color: #3ecf8e; border-color: rgba(62, 207, 142, 0.35); background: rgba(62, 207, 142, 0.08); }
+.acoes-linha .btn-delete-perm { color: #f07272; }
+.acoes-linha .btn-delete-perm:hover { border-color: #f07272; color: #f07272; background: rgba(240, 114, 114, 0.08); }
 @media (max-width: 768px) {
   .admin-table td .acoes-linha { justify-content: center; flex-wrap: wrap; gap: 10px; }
   .admin-table .acoes-linha .btn-action { width: 46px; height: 46px; border-radius: 12px; }
   .acoes-linha .btn-action .ico-svg { width: 20px; height: 20px; }
 }
 
-/* ===== Status nos tons do salão ===== */
+/* ===== Status com bolinha colorida ===== */
 .badge-status, .admin-table .badge-status {
   display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
   padding: 5px 11px; border-radius: 50px; font-size: 0.75rem; font-weight: 700;
   text-transform: none; letter-spacing: 0.2px; border: 1px solid transparent;
 }
 .status-ponto { width: 7px; height: 7px; border-radius: 50%; background: currentColor; display: inline-block; }
-.badge-agendado { background: rgba(196, 140, 58, 0.12); color: #a8742a; border-color: rgba(196, 140, 58, 0.3); }
-.badge-confirmado { background: rgba(125, 138, 95, 0.13); color: #66724a; border-color: rgba(125, 138, 95, 0.35); }
-.badge-em_atendimento, .badge-atendimento { background: rgba(140, 110, 150, 0.12); color: #7a5f86; border-color: rgba(140, 110, 150, 0.3); }
-.badge-realizado { background: #7d8a5f; color: #fff; border-color: #7d8a5f; }
-.badge-cancelado { background: rgba(176, 114, 114, 0.12); color: #a05f5f; border-color: rgba(176, 114, 114, 0.3); }
-.badge-bloqueado { background: rgba(var(--ink-rgb), 0.06); color: var(--text-secondary); border-color: var(--border-color); }
+.badge-agendado { background: rgba(240, 180, 76, 0.12); color: #f0b44c; border-color: rgba(240, 180, 76, 0.3); }
+.badge-confirmado { background: rgba(var(--accent-rgb), 0.13); color: var(--accent-light); border-color: rgba(var(--accent-rgb), 0.35); }
+.badge-em_atendimento, .badge-atendimento { background: rgba(181, 140, 240, 0.12); color: #b58cf0; border-color: rgba(181, 140, 240, 0.3); }
+.badge-realizado { background: rgba(62, 207, 142, 0.13); color: #3ecf8e; border-color: rgba(62, 207, 142, 0.35); }
+.badge-cancelado { background: rgba(240, 114, 114, 0.12); color: #f07272; border-color: rgba(240, 114, 114, 0.3); }
+.badge-bloqueado { background: rgba(255, 255, 255, 0.06); color: var(--text-secondary); border-color: var(--border-color); }
 .badge-vencido { white-space: nowrap; }
 .admin-acoes-menu .btn { justify-content: flex-start !important; text-align: left; }
 .btn-action .ico-svg, .acoes-linha svg { max-width: 20px; max-height: 20px; }
