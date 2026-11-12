@@ -2894,3 +2894,6 @@ tr.row-vencido {
 @media (max-width: 1200px) {
   .user-info-pill .user-name, .user-info-pill .user-name + span { display: none; }
 }
+.hero-ola { margin: 0 0 14px; font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; color: var(--gold-primary); display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.hero-ola[hidden] { display: none; }
+.hero-ola-trocar { background: none; border: none; color: var(--text-muted); font-size: 0.8rem; font-weight: 500; text-decoration: underline; cursor: pointer; padding: 2px; }
