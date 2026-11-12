@@ -3008,3 +3008,9 @@ body[data-tela="view-home"] .footer { display: none; }
   .admin-table .acoes-linha .btn-action { width: 30px; height: 30px; border-radius: 8px; }
   .acoes-linha .btn-action .ico-svg { width: 15px; height: 15px; }
 }
+
+/* ---------- Logo no menu (no lugar do nome) e início sem logo repetida ---------- */
+.navbar-brand.navbar-brand-logo { background: none; animation: none; -webkit-text-fill-color: initial; display: flex; align-items: center; line-height: 0; }
+.navbar-brand-logo img { height: 48px; width: auto; display: block; }
+@media (max-width: 768px) { .navbar-brand-logo img { height: 40px; } }
+body:has(.navbar-brand-logo) #heroLogo { display: none; }

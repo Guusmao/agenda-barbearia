@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 64" role="img" aria-label="Sua logo aqui">
+  <rect x="2" y="2" width="236" height="60" rx="12" fill="none" stroke="#8b96a8" stroke-width="2" stroke-dasharray="7 6"/>
+  <g fill="none" stroke="#8b96a8" stroke-width="8" stroke-linecap="round" transform="translate(38 32) scale(0.32)">
+    <circle cx="-34" cy="30" r="18"/>
+    <circle cx="34" cy="30" r="18"/>
+    <path d="M-22 16 L30 -46 M22 16 L-30 -46"/>
+  </g>
+  <text x="138" y="40" text-anchor="middle" font-family="Outfit, Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#c9d1dc">Sua logo aqui</text>
+</svg>

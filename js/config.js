@@ -13,7 +13,8 @@ window.APP_CONFIG = {
   nome: 'Sua Barbearia',                // Nome completo (Google Agenda, painel)
   nomeCurto: 'Sua Barbearia',           // Nome curto (rodapé e menu do admin)
   marca: 'Agendaí Barber',               // Texto do logo no menu superior
-  logoHero: 'img/sua-logo.svg?v=2',         // Coloque o logo da barbearia em img/ e troque aqui
+  logoHero: 'img/sua-logo.svg?v=2',
+  logoMenu: 'img/sua-logo-menu.svg?v=1',   // Logo do menu superior (no lugar do nome). Deixe '' para mostrar o nome em texto         // Coloque o logo da barbearia em img/ e troque aqui
   corDestaque: '#3d7eff',               // Cor dos botões, preços e detalhes (formato #rrggbb)
   tituloPagina: 'Agendaí Barber | Agende seu horário',
   descricaoPagina: 'Agende seu horário online. Cortes modernos, barba e muito mais com os melhores profissionais.',
